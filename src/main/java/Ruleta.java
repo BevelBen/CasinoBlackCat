@@ -17,7 +17,7 @@ public class Ruleta {
     public static final char OPCION_IMPAR = 'I';
 
     /**
-     * Método principal: inicia el programa llamando al menú.
+     * Inicia el programa y invoca el menú.
      */
     public static void main(String[] args) {
         menu();
