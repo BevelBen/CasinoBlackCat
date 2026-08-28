@@ -101,8 +101,7 @@ public class Ruleta {
      * @return número de la ruleta.
      */
     public static int girarRuleta() {
-// TODO: Generar y retornar un número entre 0 y 36.
-        return 0;
+        return rng.nextInt(37);
     }
 
     /**
