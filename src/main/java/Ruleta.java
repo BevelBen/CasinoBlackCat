@@ -127,6 +127,16 @@ public class Ruleta {
     }
 
     /**
+     * Determina si un número es par.
+     *e
+     * @param n número cuya paridad se verifica.
+     * @return true si es par, false en caso contrario.
+     */
+    public static boolean esPar(int n) {
+        return n % 2 == 0;
+    }
+
+    /**
      * Registra los resultados de la ronda en los arreglos
      * de historial.
      *
