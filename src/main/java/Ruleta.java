@@ -121,8 +121,13 @@ public class Ruleta {
      * @return true si acertó, false si perdió.
      */
     public static boolean evaluarResultado(int numero, char tipo) {
-// TODO: Evaluar el resultado según el tipo de apuesta.
-        return false;
+        return switch (tipo) {
+            case OPCION_ROJO -> esRojo(numero);
+            case OPCION_NEGRO -> !esRojo(numero);
+            case OPCION_PAR -> esPar(numero);
+            case OPCION_IMPAR -> !esPar(numero);
+            default -> false;
+        };
     }
 
     /**
