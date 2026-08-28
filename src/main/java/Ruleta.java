@@ -76,8 +76,16 @@ public class Ruleta {
      * @return el tipo de apuesta elegido.
      */
     public static char leerTipoApuesta(Scanner in) {
-// TODO: Leer y validar el tipo de apuesta.
-        return ' ';
+        while (true) {
+            char tipo = leerCaracter(in);
+            if (validarTipoApuesta(tipo)) {
+                return tipo;
+            }
+        }
+    }
+
+    public static char leerCaracter(Scanner in) {
+        return in.next().charAt(0);
     }
 
     /**
