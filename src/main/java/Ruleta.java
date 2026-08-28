@@ -11,6 +11,10 @@ public class Ruleta {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
+    public static final char OPCION_ROJO = 'R';
+    public static final char OPCION_NEGRO = 'N';
+    public static final char OPCION_PAR = 'P';
+    public static final char OPCION_IMPAR = 'I';
 
     /**
      * Método principal: inicia el programa llamando al menú.
@@ -74,6 +78,20 @@ public class Ruleta {
     public static char leerTipoApuesta(Scanner in) {
 // TODO: Leer y validar el tipo de apuesta.
         return ' ';
+    }
+
+    /**
+     * Valida que el caracter ingresado corresponde con
+     * una apuesta aceptada.
+     *
+     * @param tipo tipo en forma de carácter.
+     * @return true si es valido, false en caso contrario.
+     */
+    public static boolean validarTipoApuesta(char tipo) {
+        return switch (tipo) {
+            case OPCION_ROJO, OPCION_NEGRO, OPCION_PAR, OPCION_IMPAR -> true;
+            default -> false;
+        };
     }
 
     /**
