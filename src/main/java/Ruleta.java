@@ -31,7 +31,7 @@ public class Ruleta {
         mostrarMenu();
 
         Scanner scanner = new Scanner(System.in);
-        int opcion = leerOpcion(scanner);
+        int opcion = leerEntero(scanner);
         if (validarOpcion(opcion)) {
             ejecutarOpcion(opcion, scanner);
         }
@@ -47,12 +47,12 @@ public class Ruleta {
     }
 
     /**
-     * Lee la opción elegida por el usuario desde teclado.
+     * Lee un entero ingresado por el usuario desde teclado.
      *
      * @param in Scanner para entrada por consola.
-     * @return número de opción ingresado.
+     * @return número entero ingresado.
      */
-    public static int leerOpcion(Scanner in) {
+    public static int leerEntero(Scanner in) {
         return in.nextInt();
     }
 
