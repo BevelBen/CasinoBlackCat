@@ -101,13 +101,29 @@ public class Ruleta {
     }
 
     /**
+     * Determina si un número entero pertenece a un arreglo.
+     *
+     * @param n número que se desea buscar.
+     * @return true si se encuentar, falso en caso contrario.
+     */
+    public static boolean buscarEnteroArreglo(int[] v, int n) {
+        int i = 0;
+        while (i < v.length) {
+            if (n == v[i]) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    /**
      * Determina si un número corresponde a color rojo.
      ** @param n número de la ruleta.
      * @return true si es rojo, false en caso contrario.
      */
     public static boolean esRojo(int n) {
-// TODO: Buscar el número en el arreglo numerosRojos.
-        return false;
+        return buscarEnteroArreglo(numerosRojos, n);
     }
 
     /**
