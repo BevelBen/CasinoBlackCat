@@ -28,14 +28,22 @@ public class Ruleta {
      * un menú en consola.
      */
     public static void menu() {
-// TODO: Repetir el menú hasta que el usuario elija salir.
+        mostrarMenu();
+
+        Scanner scanner = new Scanner(System.in);
+        int opcion = leerOpcion(scanner);
+        if (validarOpcion(opcion)) {
+            ejecutarOpcion(opcion, scanner);
+        }
     }
 
     /**
      * Muestra en consola las opciones disponibles del menú.
      */
     public static void mostrarMenu() {
-// TODO: Mostrar las opciones disponibles para el usuario.
+        IO.println("1. Ejecutar Ronda");
+        IO.println("2. Ver Historial");
+        IO.println("3. Salir");
     }
 
     /**
@@ -45,8 +53,17 @@ public class Ruleta {
      * @return número de opción ingresado.
      */
     public static int leerOpcion(Scanner in) {
-// TODO: Leer y retornar la opción ingresada.
-        return 0;
+        return in.nextInt();
+    }
+
+    /**
+     * Valida la opción ingresada.
+     *
+     * @param opcion entero que se desea validar.
+     * @return true si es valido, false en caso contrario..
+     */
+    public static boolean validarOpcion(int opcion) {
+        return (opcion >= 1 && opcion <= 3);
     }
 
     /**
