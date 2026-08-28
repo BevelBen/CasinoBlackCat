@@ -175,7 +175,18 @@ public class Ruleta {
      * @param acierto si el jugador acertó o no.
      */
     public static void registrarResultado(int numero, int apuesta, boolean acierto) {
-// TODO: Guardar los datos sin superar MAX_HISTORIAL.
+        if (verificarEspacioHistorial()) {
+            historialNumeros[historialSize] = numero;
+            historialApuestas[historialSize] = apuesta;
+            historialAciertos[historialSize] = acierto;
+        }
+        else {
+            IO.println("El historial esta lleno.");
+        }
+    }
+
+    public static boolean verificarEspacioHistorial() {
+        return historialSize < MAX_HISTORIAL;
     }
 
     /**
