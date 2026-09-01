@@ -72,7 +72,14 @@ public class Ruleta {
      * @param opcion opción elegida por el usuario.
      * @param in Scanner para entrada por consola.*/
     public static void ejecutarOpcion(int opcion, Scanner in) {
-// TODO: Ejecutar la acción asociada a la opción.
+        switch (opcion) {
+            case 1:
+                iniciarRonda(in);
+            case 2:
+                mostrarEstadisticas();
+            case 3:
+                // SALIR DEL PROGRAMA
+        }
     }
 
     /**
