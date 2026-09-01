@@ -57,6 +57,31 @@ public class Ruleta {
     }
 
     /**
+     * Valida que el número ingresado sea mayor que cero.
+     *
+     * @param monto monto que se desea validar.
+     * @return true si es valido, falso en caso contrario.
+     */
+    public static boolean validarMonto(int monto) {
+        return (monto > 0);
+    }
+
+    /**
+     * Le pide al usuario el monto que desea apostar.
+     *
+     * @param in Scanner para entrada por consola.
+     * @return monto apostado del usuario.
+     */
+    public static int leerMonto(Scanner in) {
+        while (true) {
+            int monto = leerEntero(in);
+            if (validarMonto(monto)) {
+                return monto;
+            }
+        }
+    }
+
+    /**
      * Valida la opción ingresada.
      *
      * @param opcion entero que se desea validar.
@@ -90,7 +115,7 @@ public class Ruleta {
      */
     public static void iniciarRonda(Scanner in) {
         char apuesta = leerTipoApuesta(in);
-        int monto = leerEntero(in);
+        int monto = leerMonto(in);
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
