@@ -89,7 +89,12 @@ public class Ruleta {
      * @param in Scanner para entrada por consola.
      */
     public static void iniciarRonda(Scanner in) {
-// TODO: Implementar el flujo completo de una ronda.
+        char apuesta = leerTipoApuesta(in);
+        int monto = leerEntero(in);
+        int numero = girarRuleta();
+        boolean acerto = evaluarResultado(numero, apuesta);
+
+        // REGISTRAR RESULTADO
     }
 
     /**
