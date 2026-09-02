@@ -30,10 +30,13 @@ public class Ruleta {
      * un menú en consola.
      */
     public static void menu() {
-        do {
+        while (true) {
             mostrarMenu();
             elegirOpcion(scanner);
-        } while (!salir);
+            if (salir) {
+                return;
+            }
+        }
     }
 
     /**
@@ -50,6 +53,7 @@ public class Ruleta {
      *  del menú.
      */
     public static void elegirOpcion(Scanner in) {
+        IO.println("Elige que opción del menú deseas realizar...");
         int opcion = leerEntero(in);
         if (validarOpcion(opcion)) {
             ejecutarOpcion(opcion, in);
@@ -84,6 +88,7 @@ public class Ruleta {
      */
     public static int leerMonto(Scanner in) {
         while (true) {
+            IO.println("Ingrese el monto que desea apostar...");
             int monto = leerEntero(in);
             if (validarMonto(monto)) {
                 return monto;
@@ -110,10 +115,13 @@ public class Ruleta {
         switch (opcion) {
             case 1:
                 iniciarRonda(in);
+                break;
             case 2:
                 mostrarEstadisticas();
+                break;
             case 3:
                 salir = true;
+                break;
         }
     }
 
@@ -142,6 +150,7 @@ public class Ruleta {
      */
     public static char leerTipoApuesta(Scanner in) {
         while (true) {
+            IO.println("Ingrese el tipo de apuesta (R/N/P/I)...");
             char tipo = leerCaracter(in);
             if (validarTipoApuesta(tipo)) {
                 return tipo;
