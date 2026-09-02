@@ -16,6 +16,8 @@ public class Ruleta {
     public static final char OPCION_NEGRO = 'N';
     public static final char OPCION_PAR = 'P';
     public static final char OPCION_IMPAR = 'I';
+    public static int montoApostado = 0;
+    public static int montoGanado = 0;
     public static boolean salir = false;
 
     /**
@@ -137,8 +139,21 @@ public class Ruleta {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
+        agregarMontos(monto, acerto);
         registrarResultado(numero, apuesta, acerto);
         mostrarResultado(numero, apuesta, monto, acerto);
+    }
+
+    /**
+     * Permite al usuario seleccionar el tipo de apuesta
+     * (R/N/P/I).
+     *
+     * @param monto monto que se aposto.
+     * @param acerto si es que acerto o no.
+     */
+    public static void agregarMontos(int monto, boolean acerto) {
+        montoApostado += monto;
+        montoGanado += acerto ? monto : monto * (-1);
     }
 
     /**
@@ -259,6 +274,11 @@ public class Ruleta {
         }
     }
 
+    /**
+     * Permite verificar si es que el historial esta lleno.
+     *
+     * @return true si hay espacio, falso en caso contrario.
+     */
     public static boolean verificarEspacioHistorial() {
         return historialSize < MAX_HISTORIAL;
     }
@@ -284,6 +304,6 @@ public class Ruleta {
      * rondas jugadas.
      */
     public static void mostrarEstadisticas() {
-// TODO: Calcular y mostrar las estadísticas acumuladas.
+
     }
 }
