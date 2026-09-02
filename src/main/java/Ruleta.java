@@ -129,7 +129,8 @@ public class Ruleta {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
-        // REGISTRAR RESULTADO
+        registrarResultado(numero, apuesta, acerto);
+        mostrarResultado(numero, apuesta, monto, acerto);
     }
 
     /**
@@ -263,7 +264,10 @@ public class Ruleta {
      */
     public static void mostrarResultado(int numero, char tipo, int monto, boolean
             acierto) {
-// TODO: Mostrar los datos y el resultado de la ronda.
+        IO.println("Número obtenido en la ruleta: " + numero);
+        IO.println("Tipo de apuesta realizada: " + tipo);
+        IO.println("Monto apostado: " + monto);
+        IO.println("Ganaste la apuesta: " + acierto);
     }
 
     /**
