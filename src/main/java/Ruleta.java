@@ -7,6 +7,7 @@ public class Ruleta {
     public static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
     public static int historialSize = 0;
     public static Random rng = new Random();
+    public static Scanner scanner = new Scanner(System.in);
     public static int[] numerosRojos = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
@@ -15,6 +16,7 @@ public class Ruleta {
     public static final char OPCION_NEGRO = 'N';
     public static final char OPCION_PAR = 'P';
     public static final char OPCION_IMPAR = 'I';
+    public static boolean salir = false;
 
     /**
      * Inicia el programa y invoca el menú.
@@ -28,13 +30,10 @@ public class Ruleta {
      * un menú en consola.
      */
     public static void menu() {
-        mostrarMenu();
-
-        Scanner scanner = new Scanner(System.in);
-        int opcion = leerEntero(scanner);
-        if (validarOpcion(opcion)) {
-            ejecutarOpcion(opcion, scanner);
-        }
+        do {
+            mostrarMenu();
+            elegirOpcion(scanner);
+        } while (!salir);
     }
 
     /**
@@ -44,6 +43,17 @@ public class Ruleta {
         IO.println("1. Ejecutar Ronda");
         IO.println("2. Ver Historial");
         IO.println("3. Salir");
+    }
+
+    /**
+     *  Permite al usuario elegir una de las opciones
+     *  del menú.
+     */
+    public static void elegirOpcion(Scanner in) {
+        int opcion = leerEntero(in);
+        if (validarOpcion(opcion)) {
+            ejecutarOpcion(opcion, in);
+        }
     }
 
     /**
@@ -103,7 +113,7 @@ public class Ruleta {
             case 2:
                 mostrarEstadisticas();
             case 3:
-                // SALIR DEL PROGRAMA
+                salir = true;
         }
     }
 
