@@ -139,8 +139,8 @@ public class Ruleta {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
-        agregarMontos(monto, acerto);
         registrarResultado(numero, apuesta, acerto);
+        agregarMontos(monto, acerto);
         mostrarResultado(numero, apuesta, monto, acerto);
     }
 
@@ -268,6 +268,7 @@ public class Ruleta {
             historialNumeros[historialSize] = numero;
             historialApuestas[historialSize] = apuesta;
             historialAciertos[historialSize] = acierto;
+            historialSize++;
         }
         else {
             IO.println("El historial esta lleno.");
@@ -299,11 +300,25 @@ public class Ruleta {
         IO.println("Ganaste la apuesta: " + acierto);
     }
 
+    public static int cantidadDeEntradasVerdaderas(boolean[] v) {
+        int count = 0;
+        for (int i = 1; i < v.length; i++) {
+            if (v[i]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     /**
      * Muestra estadísticas generales de todas las
      * rondas jugadas.
      */
     public static void mostrarEstadisticas() {
-
+        IO.println("Cantidad de rondas jugadas: " + historialSize);
+        IO.println("Monto total apostado: " + montoApostado);
+        IO.println("Cantidad total de aciertos: " + cantidadDeEntradasVerdaderas(historialAciertos));
+        IO.println("Porcentaje de aciertos: " + (double) cantidadDeEntradasVerdaderas(historialAciertos) / historialSize * 100);
+        IO.println("Monto neto ganado: " + montoGanado);
     }
 }
