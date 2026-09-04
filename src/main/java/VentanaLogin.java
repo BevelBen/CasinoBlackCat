@@ -36,7 +36,17 @@ public class VentanaLogin {
      * ventana o mostrar un mensaje de error.
      */
     private void login() {
-// TODO: Implementar la lógica de inicio de sesión
+        String usuarioIngresado = txtUsuario.getText();
+        char[] arrayClave = txtClave.getPassword();
+        String usuarioClave = new String(arrayClave);
+
+        String nombre = validarCredenciales(usuarioIngresado, usuarioClave);
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Los datos ingresados no son validos, intente denuevo.");
+        } else {
+            // LANZAR SIGUIENTE VENTANA
+        }
     }
 
     /**
