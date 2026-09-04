@@ -18,8 +18,23 @@ public class VentanaLogin {
      * Configura sus componentes y eventos.
      */
     public VentanaLogin() {
-        // TODO: Agregar los usuarios iniciales a la lista
-        // TODO: Inicializar y configurar la ventana
+        USUARIOS.add(new Usuario("benjamin", "123clave", "Benjamin Morales"));
+        USUARIOS.add(new Usuario("alejandro", "123456", "Alejandro"));
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 200);
+
+        btnIngresar.addActionListener(e -> {
+            login();
+        });
+
+        frame.add(lblUsuario);
+        frame.add(txtUsuario);
+        frame.add(lblClave);
+        frame.add(txtClave);
+        frame.add(btnIngresar);
+
+        mostrarVentana();
     }
 
     /**
@@ -27,7 +42,8 @@ public class VentanaLogin {
      * Debe centrarla y hacerla visible.
      */
     public void mostrarVentana() {
-        // TODO: Centrar y mostrar la ventana
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     /**
