@@ -48,7 +48,12 @@ public class VentanaLogin {
     si no existe una coincidencia
      */
     private String validarCredenciales(String u, String p) {
-        // TODO: Recorrer la lista y validar las credenciales
+        for (int i = 0; i < USUARIOS.size(); i++) {
+            Usuario usuario = (Usuario) USUARIOS.get(i);
+            if (usuario.validarCredenciales(u, p)) {
+                return usuario.getNombre();
+            }
+        }
         return "";
     }
 
