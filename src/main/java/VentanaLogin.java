@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,9 @@ public class VentanaLogin {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
+        frame.setLayout(new GridLayout(5, 1, 5, 5));
 
-        btnIngresar.addActionListener(e -> {
-            login();
-        });
+        btnIngresar.addActionListener(e -> login());
 
         frame.add(lblUsuario);
         frame.add(txtUsuario);
@@ -59,7 +59,9 @@ public class VentanaLogin {
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Los datos ingresados no son validos, intente denuevo.");
         } else {
-            // LANZAR SIGUIENTE VENTANA
+            frame.dispose();
+            VentanaRuleta vistaRuleta = new VentanaRuleta();
+            vistaRuleta.mostrarVentana();
         }
     }
 
@@ -69,7 +71,7 @@ public class VentanaLogin {
      * @param u nombre de usuario ingresado
      * @param p contraseña ingresada
      * @return el nombre del usuario si las credenciales son válidas o una cadena vacía
-    si no existe una coincidencia
+     * si no existe una coincidencia
      */
     private String validarCredenciales(String u, String p) {
         for (int i = 0; i < USUARIOS.size(); i++) {
@@ -79,13 +81,5 @@ public class VentanaLogin {
             }
         }
         return "";
-    }
-
-    /**
-     * Abre la ventana de registro para crear un nuevo usuario.
-     * Debe cerrar la ventana actual e invocar a VentanaRegistro.
-     */
-    private void abrirRegistro() {
-// TODO: Cerrar la ventana actual y abrir la ventana de registro
     }
 }
