@@ -1,3 +1,5 @@
+package Servicios;
+
 import java.util.Random;
 
 public class Ruleta {
@@ -39,13 +41,12 @@ public class Ruleta {
      *
      * @param apuesta Caracter del tipo de apuesta.
      */
-    public void iniciarRonda(char apuesta, int monto) {
+    public String iniciarRonda(char apuesta, int monto) {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
         registrarResultado(numero, apuesta, acerto);
-        agregarMontos(monto, acerto);
-        prepararResultado(numero, apuesta, monto, acerto);
+        return prepararResultado(numero, apuesta, monto, acerto);
     }
 
     /**
@@ -162,10 +163,8 @@ public class Ruleta {
      * @param monto monto apostado.
      * @param acierto si el jugador ganó o perdió.
      */
-    private void prepararResultado(int numero, char tipo, int monto, boolean
-            acierto) {
-        ultimoAcierto = acierto;
-        ultimoResultado = "Número obtenido en la ruleta: " + numero + "\n"
+    private String prepararResultado(int numero, char tipo, int monto, boolean acierto) {
+        return "Número obtenido en la ruleta: " + numero + "\n"
                 + "Tipo de apuesta realizada: " + tipo + "\n"
                 + "Monto apostado: " + monto + "\n"
                 + "Ganaste la apuesta: " + acierto;
@@ -180,20 +179,4 @@ public class Ruleta {
         }
         return count;
     }
-
-    /**
-     * Arma el mensaje con las estadisticas generales para la clase vista.
-     */
-    public void prepararEstadisticas() {
-        double porcentaje = historialSize == 0
-                ? 0
-                : (double) cantidadDeEntradasVerdaderas(historialAciertos) / historialSize * 100;
-
-        ultimasEstadisticas = "Cantidad de rondas jugadas: " + historialSize + "\n"
-                + "Monto total apostado: " + montoApostado + "\n"
-                + "Cantidad total de aciertos: " + cantidadDeEntradasVerdaderas(historialAciertos) + "\n"
-                + "Porcentaje de aciertos: " + porcentaje + "%\n"
-                + "Monto neto ganado: " + montoGanado;
-    }
-
 }
