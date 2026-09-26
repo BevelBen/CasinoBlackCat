@@ -1,4 +1,4 @@
-package Servicios;
+package Controladores;
 
 import java.util.Random;
 
@@ -19,11 +19,6 @@ public class Ruleta {
     public static final char OPCION_IMPAR = 'I';
     public static int montoApostado = 0;
     public static int montoGanado = 0;
-
-    public String ultimoResultado = "";
-    public boolean ultimoAcierto = false;
-    public String ultimoAviso = "";
-    public String ultimasEstadisticas = "";
 
     /**
      * Valida que el número ingresado sea mayor que cero.
@@ -47,18 +42,6 @@ public class Ruleta {
 
         registrarResultado(numero, apuesta, acerto);
         return prepararResultado(numero, apuesta, monto, acerto);
-    }
-
-    /**
-     * Permite al usuario seleccionar el tipo de apuesta
-     * (R/N/P/I).
-     *
-     * @param monto monto que se aposto.
-     * @param acerto si es que acerto o no.
-     */
-    private void agregarMontos(int monto, boolean acerto) {
-        montoApostado += monto;
-        montoGanado += acerto ? monto : monto * (-1);
     }
 
     /**
@@ -139,10 +122,6 @@ public class Ruleta {
             historialApuestas[historialSize] = apuesta;
             historialAciertos[historialSize] = acierto;
             historialSize++;
-            ultimoAviso = "";
-        }
-        else {
-            ultimoAviso = "El historial esta lleno.";
         }
     }
 

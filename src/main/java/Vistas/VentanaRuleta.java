@@ -1,13 +1,13 @@
 package Vistas;
 
-import Servicios.Ruleta;
+import Controladores.Ruleta;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRuleta {
     // --- Componentes de la interfaz gráfica ---
-    private final JFrame frame = new JFrame("Servicios.Ruleta.Ruleta - Casino Black Cat");
+    private final JFrame frame = new JFrame("Ruleta - Casino Black Cat");
     private final JLabel lblMonto = new JLabel("Ingrese el motno deseado:");
     private final JTextField txtMonto = new JTextField();
     private final JLabel lblApuestas = new JLabel("Elija un tipo de apuesta:");
@@ -21,7 +21,7 @@ public class VentanaRuleta {
     public VentanaRuleta() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
-        frame.setLayout(new GridLayout(5, 1, 5 , 5));
+        frame.setLayout(new GridLayout(5, 1, 5, 5));
 
         btnRojo.addActionListener(e -> apostarRuleta(Ruleta.OPCION_ROJO));
         btnNegro.addActionListener(e -> apostarRuleta(Ruleta.OPCION_NEGRO));
@@ -58,11 +58,11 @@ public class VentanaRuleta {
             return;
         }
         int montoUsuario = Integer.parseInt(monto);
-        if (ruleta.validarMonto(montoUsuario)) {
-            JOptionPane.showMessageDialog(null, ruleta.iniciarRonda(opcion, montoUsuario));
+        if (!ruleta.validarMonto(montoUsuario)) {
+            JOptionPane.showMessageDialog(null, "El monto debe ser mayor que cero, intente denuevo.");
             return;
         }
-        JOptionPane.showMessageDialog(null, "El monto debe ser mayor que cero, intente denuevo.");
+        JOptionPane.showMessageDialog(null, ruleta.iniciarRonda(opcion, montoUsuario));
     }
 
 }

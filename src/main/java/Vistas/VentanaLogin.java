@@ -1,6 +1,6 @@
 package Vistas;
 
-import Modelos.Usuario;
+import Controladores.GestorUsuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaLogin {
-    // --- Lista dinámica de usuarios ---
-    public static final List USUARIOS = new ArrayList<>();
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -18,14 +16,13 @@ public class VentanaLogin {
     private final JPasswordField txtClave = new JPasswordField();
     private final JButton btnIngresar = new JButton("Ingresar");
 
+    private GestorUsuario gestorUsuario = new GestorUsuario();
+
     /**
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
     public VentanaLogin() {
-        USUARIOS.add(new Usuario("benjamin", "123clave", "Benjamin Morales"));
-        USUARIOS.add(new Usuario("alejandro", "123456", "Alejandro"));
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
@@ -56,34 +53,18 @@ public class VentanaLogin {
     private void login() {
         String usuarioIngresado = txtUsuario.getText();
         char[] arrayClave = txtClave.getPassword();
-        String usuarioClave = new String(arrayClave);
+        String claveIngresada = new String(arrayClave);
 
-        String nombre = validarCredenciales(usuarioIngresado, usuarioClave);
-
-        if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Los datos ingresados no son validos, intente denuevo.");
-        } else {
-            frame.dispose();
-            VentanaRuleta vistaRuleta = new VentanaRuleta();
-            vistaRuleta.mostrarVentana();
+        if (!gestorUsuario.verificarUsuario(usuarioIngresado)) {
+            JOptionPane.showMessageDialog(frame, "El usuario que intento buscar no se encuentra en la base de datos, intente denuevo.", "Usuario No Encontrado", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-    }
-
-    /**
-     * Valida las credenciales ingresadas utilizando la lista de usuarios.
-     *
-     * @param u nombre de usuario ingresado
-     * @param p contraseña ingresada
-     * @return el nombre del usuario si las credenciales son válidas o una cadena vacía
-     * si no existe una coincidencia
-     */
-    private String validarCredenciales(String u, String p) {
-        for (int i = 0; i < USUARIOS.size(); i++) {
-            Usuario usuario = (Usuario) USUARIOS.get(i);
-            if (usuario.validarCredenciales(u, p)) {
-                return usuario.getNombre();
-            }
+        if (!gestorUsuario.verificarClave(usuarioIngresado, claveIngresada)) {
+            JOptionPane.showMessageDialog(frame, "La contraseña ingresada no es correcta, intente denuevo.", "Contraseña Equivocada", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        return "";
+        frame.dispose();
+        VentanaRuleta ventanaRuleta = new VentanaRuleta();
+        ventanaRuleta.mostrarVentana();
     }
 }
