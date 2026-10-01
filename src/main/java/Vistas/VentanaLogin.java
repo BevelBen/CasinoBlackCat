@@ -1,11 +1,9 @@
 package Vistas;
 
-import Controladores.GestorUsuario;
+import Servicios.GestorUsuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VentanaLogin {
     // --- Componentes de la interfaz gráfica ---

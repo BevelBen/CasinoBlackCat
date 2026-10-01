@@ -1,6 +1,6 @@
 package Vistas;
 
-import Controladores.Ruleta;
+import Servicios.Ruleta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,5 +64,4 @@ public class VentanaRuleta {
         }
         JOptionPane.showMessageDialog(null, ruleta.iniciarRonda(opcion, montoUsuario));
     }
-
 }
