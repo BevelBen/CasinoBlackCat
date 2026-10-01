@@ -1,4 +1,6 @@
-package Controladores;
+package Servicios;
+
+import Modelos.Apuesta;
 
 import java.util.Random;
 
@@ -17,8 +19,6 @@ public class Ruleta {
     public static final char OPCION_NEGRO = 'N';
     public static final char OPCION_PAR = 'P';
     public static final char OPCION_IMPAR = 'I';
-    public static int montoApostado = 0;
-    public static int montoGanado = 0;
 
     /**
      * Valida que el número ingresado sea mayor que cero.
@@ -36,12 +36,12 @@ public class Ruleta {
      *
      * @param apuesta Caracter del tipo de apuesta.
      */
-    public String iniciarRonda(char apuesta, int monto) {
+    public Apuesta iniciarRonda(char apuesta, int monto) {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, apuesta);
 
         registrarResultado(numero, apuesta, acerto);
-        return prepararResultado(numero, apuesta, monto, acerto);
+        return new Apuesta(numero, apuesta, monto, acerto);
     }
 
     /**
@@ -132,30 +132,5 @@ public class Ruleta {
      */
     private boolean verificarEspacioHistorial() {
         return historialSize < MAX_HISTORIAL;
-    }
-
-    /**
-     * Muestra en consola el resultado de la ronda.
-     *
-     * @param numero número obtenido en la ruleta.
-     * @param tipo tipo de apuesta realizada.
-     * @param monto monto apostado.
-     * @param acierto si el jugador ganó o perdió.
-     */
-    private String prepararResultado(int numero, char tipo, int monto, boolean acierto) {
-        return "Número obtenido en la ruleta: " + numero + "\n"
-                + "Tipo de apuesta realizada: " + tipo + "\n"
-                + "Monto apostado: " + monto + "\n"
-                + "Ganaste la apuesta: " + acierto;
-    }
-
-    private int cantidadDeEntradasVerdaderas(boolean[] v) {
-        int count = 0;
-        for (int i = 1; i < v.length; i++) {
-            if (v[i]) {
-                count++;
-            }
-        }
-        return count;
     }
 }
