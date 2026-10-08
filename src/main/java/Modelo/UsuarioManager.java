@@ -13,11 +13,6 @@ public class UsuarioManager {
         return buscarUsuario(username) != null;
     }
 
-    public boolean verificarClave(String username, String clave) {
-        Usuario usuarioVerificado = buscarUsuario(username);
-        return usuarioVerificado.validarCredenciales(clave);
-    }
-
     public Usuario buscarUsuario(String username) {
         for (Usuario u : listaUsuarios) {
             if (u.getUsername().equals(username)) {
@@ -38,7 +33,7 @@ public class UsuarioManager {
 
     public Usuario eliminarUsuario(String usuario) {
         Usuario antiguoUsuario = buscarUsuario(usuario);
-        if (usuario == null) {
+        if (antiguoUsuario == null) {
             throw new IllegalArgumentException("No existe el usuario.");
         }
         listaUsuarios.remove(antiguoUsuario);
