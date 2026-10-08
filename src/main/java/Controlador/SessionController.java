@@ -1,0 +1,53 @@
+package Controlador;
+
+import Modelo.Usuario;
+import Modelo.UsuarioManager;
+
+public class SessionController {
+    private Usuario usuarioActual;
+    private UsuarioManager usuarioManager;
+
+    public SessionController() {
+        this(new UsuarioManager());
+    }
+
+    public SessionController(UsuarioManager usuarioManager) {
+        this.usuarioManager = usuarioManager;
+    }
+
+    public boolean verificarUsuario(String usuario) {
+        return usuarioManager.verificarUsuario(usuario);
+    }
+
+    public boolean iniciarSesion(String usuario, String clave) {
+        Usuario usuarioSesion = usuarioManager.buscarUsuario(usuario);
+        if (usuarioSesion.validarCredenciales(clave)) {
+            usuarioActual = usuarioSesion;
+            return true;
+        }
+        return false;
+    }
+
+    public void cambiarNombre(String nombre) {
+        if (!hayUsuario()) {
+            throw new IllegalStateException("No hay una sesión.");
+        }
+        usuarioActual.setNombre(nombre);
+    }
+
+    public boolean hayUsuario() {
+        return usuarioActual != null;
+    }
+
+    public String getNombreUsuario() {
+        return hayUsuario() ? usuarioActual.getNombre() : "";
+    }
+
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
+
+    public void cerrarSesion() {
+        usuarioActual = null;
+    }
+}
