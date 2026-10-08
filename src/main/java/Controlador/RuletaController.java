@@ -19,22 +19,22 @@ public class RuletaController {
         return ruleta.getSaldo();
     }
 
-    public void depositar(int monto) {
-        ruleta.depositar(monto);
+    public void depositar(String monto) {
+        ruleta.depositar(parsearMonto(monto));
     }
 
-    public ResultadoApuesta realizarApuesta(TipoApuesta tipoApuesta, int monto) {
-        return ruleta.iniciarRonda(tipoApuesta, monto);
+    public ResultadoApuesta realizarApuesta(TipoApuesta tipoApuesta, String monto) {
+        return ruleta.iniciarRonda(tipoApuesta, parsearMonto(monto));
     }
 
     private int parsearMonto(String montoTexto) {
-        if(montoTexto == null) {
-            throw new IllegalArgumentException("El monto ingresado debe ser un número.")
+        if (montoTexto == null) {
+            throw new IllegalArgumentException("El monto ingresado debe ser un número.");
         }
         try {
             return Integer.parseInt(montoTexto.trim());
         } catch (NumberFormatException e){
-            throw new IllegalArgumentException("EL monto debe ser mayor que cero.")
+            throw new IllegalArgumentException("El monto debe ser un número entero.");
         }
     }
 }
