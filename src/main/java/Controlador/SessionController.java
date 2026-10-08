@@ -21,9 +21,11 @@ public class SessionController {
 
     public boolean iniciarSesion(String usuario, String clave) {
         Usuario usuarioSesion = usuarioManager.buscarUsuario(usuario);
-        if (usuarioSesion.validarCredenciales(clave)) {
-            usuarioActual = usuarioSesion;
-            return true;
+        if (usuarioSesion != null) {
+            if (usuarioSesion.validarCredenciales(clave)) {
+                usuarioActual = usuarioSesion;
+                return true;
+            }
         }
         return false;
     }
@@ -31,6 +33,9 @@ public class SessionController {
     public void cambiarNombre(String nombre) {
         if (!hayUsuario()) {
             throw new IllegalStateException("No hay una sesión.");
+        }
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser vacío.");
         }
         usuarioActual.setNombre(nombre);
     }
