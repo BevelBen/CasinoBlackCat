@@ -1,6 +1,7 @@
-package Vistas;
+package Vista;
 
-import Servicios.GestorUsuario;
+import Controlador.RuletaController;
+import Controlador.SessionController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +15,17 @@ public class VentanaLogin {
     private final JPasswordField txtClave = new JPasswordField();
     private final JButton btnIngresar = new JButton("Ingresar");
 
-    private GestorUsuario gestorUsuario = new GestorUsuario();
+    private SessionController session;
+    private RuletaController ruletaController;
 
     /**
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin() {
+    public VentanaLogin(SessionController session, RuletaController ruletaController) {
+        this.session = session;
+        this.ruletaController = ruletaController;
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
@@ -53,16 +58,16 @@ public class VentanaLogin {
         char[] arrayClave = txtClave.getPassword();
         String claveIngresada = new String(arrayClave);
 
-        if (!gestorUsuario.verificarUsuario(usuarioIngresado)) {
+        if (!session.verificarUsuario(usuarioIngresado)) {
             JOptionPane.showMessageDialog(frame, "El usuario que intento buscar no se encuentra en la base de datos, intente denuevo.", "Usuario No Encontrado", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!gestorUsuario.verificarClave(usuarioIngresado, claveIngresada)) {
+        if (!session.iniciarSesion(usuarioIngresado, claveIngresada)) {
             JOptionPane.showMessageDialog(frame, "La contraseña ingresada no es correcta, intente denuevo.", "Contraseña Equivocada", JOptionPane.WARNING_MESSAGE);
             return;
         }
         frame.dispose();
-        VentanaRuleta ventanaRuleta = new VentanaRuleta();
-        ventanaRuleta.mostrarVentana();
+        VentanaMenu ventanaMenu = new VentanaMenu(session, ruletaController);
+        ventanaMenu.mostrarVentana();
     }
 }
