@@ -1,4 +1,8 @@
-import Vistas.VentanaLogin;
+package Launcher;
+
+import Controlador.RuletaController;
+import Controlador.SessionController;
+import Vista.VentanaLogin;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
@@ -15,7 +19,9 @@ public class Launcher {
             e.printStackTrace();
         }
 
-        VentanaLogin ventana = new VentanaLogin();
+        SessionController session = new SessionController();
+        RuletaController ruletaController = new RuletaController();
+        VentanaLogin ventana = new VentanaLogin(session, ruletaController);
         ventana.mostrarVentana();
     }
 }
