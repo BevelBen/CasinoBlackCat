@@ -1,6 +1,4 @@
-package Servicios;
-
-import Modelos.Apuesta;
+package Modelo;
 
 import java.util.Random;
 
@@ -15,10 +13,6 @@ public class Ruleta {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
-    public static final char OPCION_ROJO = 'R';
-    public static final char OPCION_NEGRO = 'N';
-    public static final char OPCION_PAR = 'P';
-    public static final char OPCION_IMPAR = 'I';
 
     /**
      * Valida que el número ingresado sea mayor que cero.
@@ -36,12 +30,12 @@ public class Ruleta {
      *
      * @param apuesta Caracter del tipo de apuesta.
      */
-    public Apuesta iniciarRonda(char apuesta, int monto) {
+    public ResultadoApuesta iniciarRonda(TipoApuesta tipoApuesta, int monto) {
         int numero = girarRuleta();
-        boolean acerto = evaluarResultado(numero, apuesta);
+        boolean acerto = evaluarResultado(numero, tipoApuesta);
 
-        registrarResultado(numero, apuesta, acerto);
-        return new Apuesta(numero, apuesta, monto, acerto);
+        registrarResultado(numero, monto, acerto);
+        return new ResultadoApuesta(numero, tipoApuesta, monto, acerto);
     }
 
     /**
@@ -62,13 +56,12 @@ public class Ruleta {
      * @param tipo tipo de apuesta elegida.
      * @return true si acertó, false si perdió.
      */
-    private boolean evaluarResultado(int numero, char tipo) {
-        return switch (tipo) {
-            case OPCION_ROJO -> esRojo(numero);
-            case OPCION_NEGRO -> !esRojo(numero);
-            case OPCION_PAR -> esPar(numero);
-            case OPCION_IMPAR -> !esPar(numero);
-            default -> false;
+    private boolean evaluarResultado(int numero, TipoApuesta tipoApuesta) {
+        return switch (tipoApuesta) {
+            case ROJO -> esRojo(numero);
+            case NEGRO -> !esRojo(numero);
+            case PAR -> esPar(numero);
+            case IMPAR -> !esPar(numero);
         };
     }
 

@@ -1,6 +1,7 @@
-package Vistas;
+package Vista;
 
-import Servicios.Ruleta;
+import Modelo.Ruleta;
+import Modelo.TipoApuesta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +12,8 @@ public class VentanaRuleta {
     private final JLabel lblMonto = new JLabel("Ingrese el motno deseado:");
     private final JTextField txtMonto = new JTextField();
     private final JLabel lblApuestas = new JLabel("Elija un tipo de apuesta:");
-    private final JButton btnRojo = new JButton("Rojo");
-    private final JButton btnNegro = new JButton("Negro");
-    private final JButton btnPar = new JButton("Par");
-    private final JButton btnImpar = new JButton("Impar");
+    private final JComboBox<TipoApuesta> cboApuestas =new JComboBox<>(TipoApuesta.values());
+    private final JButton btnApostar = new JButton("Apostar");
 
     private final Ruleta ruleta = new Ruleta();
 
@@ -23,18 +22,13 @@ public class VentanaRuleta {
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
 
-        btnRojo.addActionListener(e -> apostarRuleta(Ruleta.OPCION_ROJO));
-        btnNegro.addActionListener(e -> apostarRuleta(Ruleta.OPCION_NEGRO));
-        btnPar.addActionListener(e -> apostarRuleta(Ruleta.OPCION_PAR));
-        btnImpar.addActionListener(e -> apostarRuleta(Ruleta.OPCION_IMPAR));
+        btnApostar.addActionListener(e -> apostarRuleta());
 
         frame.add(lblMonto);
         frame.add(txtMonto);
         frame.add(lblApuestas);
-        frame.add(btnRojo);
-        frame.add(btnNegro);
-        frame.add(btnPar);
-        frame.add(btnImpar);
+        frame.add(cboApuestas);
+        frame.add(btnApostar);
     }
 
     public void mostrarVentana() {
@@ -51,8 +45,10 @@ public class VentanaRuleta {
         }
     }
 
-    private void apostarRuleta(char opcion) {
+    private void apostarRuleta() {
         String monto = txtMonto.getText();
+        TipoApuesta tipoApuesta = (TipoApuesta) cboApuestas.getSelectedItem();
+
         if (!verificarMonto(monto)) {
             JOptionPane.showMessageDialog(null, "El monto debe ser un número, intente denuevo.");
             return;
@@ -62,6 +58,6 @@ public class VentanaRuleta {
             JOptionPane.showMessageDialog(null, "El monto debe ser mayor que cero, intente denuevo.");
             return;
         }
-        JOptionPane.showMessageDialog(null, ruleta.iniciarRonda(opcion, montoUsuario));
+        JOptionPane.showMessageDialog(null, ruleta.iniciarRonda(tipoApuesta, montoUsuario));
     }
 }
