@@ -28,7 +28,7 @@ public class Ruleta {
      * Inicia una ronda de la ruleta: leer apuesta, girar,
      * evaluar y mostrar resultado.
      *
-     * @param apuesta Caracter del tipo de apuesta.
+     * @param tipoApuesta tipo de apuesta.
      */
     public ResultadoApuesta iniciarRonda(TipoApuesta tipoApuesta, int monto) {
         int numero = girarRuleta();
@@ -53,7 +53,7 @@ public class Ruleta {
      * fue acertada.
      *
      * @param numero número obtenido en la ruleta.
-     * @param tipo tipo de apuesta elegida.
+     * @param tipoApuesta tipo de apuesta elegida.
      * @return true si acertó, false si perdió.
      */
     private boolean evaluarResultado(int numero, TipoApuesta tipoApuesta) {
