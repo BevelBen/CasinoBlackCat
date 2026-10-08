@@ -13,6 +13,22 @@ public class ResultadoApuesta {
         this.acerto = acerto;
     }
 
+    public int getNumeroRuleta() {
+        return numeroRuleta;
+    }
+
+    public int getMonto() {
+        return monto;
+    }
+
+    public TipoApuesta getTipoApuesta() {
+        return tipoApuesta;
+    }
+
+    public boolean getAcerto() {
+        return acerto;
+    }
+
     @Override
     public String toString() {
         return "El número que salio de la ruleta fue " + numeroRuleta +
