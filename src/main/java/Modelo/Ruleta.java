@@ -55,7 +55,7 @@ public class Ruleta {
             throw new IllegalArgumentException("El monto debe ser mayor que cero.");
         }
         if (monto > saldo) {
-            throw new IllegalStateException("No hay suficiente saldo para aopostar.");
+            throw new IllegalStateException("No hay suficiente saldo para apostar.");
         }
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, tipoApuesta);
