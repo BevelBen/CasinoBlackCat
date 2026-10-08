@@ -3,16 +3,29 @@ package Modelo;
 import java.util.Random;
 
 public class Ruleta {
-    public static final int MAX_HISTORIAL = 100;
-    public static int[] historialNumeros = new int[MAX_HISTORIAL];
-    public static int[] historialApuestas = new int[MAX_HISTORIAL];
-    public static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
-    public static int historialSize = 0;
-    public static Random rng = new Random();
-    public static int[] numerosRojos = {
+    private static final int MAX_HISTORIAL = 100;
+    private int[] historialNumeros = new int[MAX_HISTORIAL];
+    private int[] historialApuestas = new int[MAX_HISTORIAL];
+    private boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
+    private int historialSize = 0;
+    private int saldo;
+    private Random rng = new Random();
+    private static final int[] NUMEROS_ROJOS = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
+
+    public Ruleta() {
+        this(0);
+    }
+
+    public Ruleta(int saldo) {
+        this.saldo = saldo;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
 
     /**
      * Valida que el número ingresado sea mayor que cero.
@@ -24,6 +37,13 @@ public class Ruleta {
         return (monto > 0);
     }
 
+    public void depositar(int monto) {
+        if (!validarMonto(monto)) {
+            throw new IllegalArgumentException("El monto a depositar debe ser mayor que cero.");
+        }
+        saldo += monto;
+    }
+
     /**
      * Inicia una ronda de la ruleta: leer apuesta, girar,
      * evaluar y mostrar resultado.
@@ -31,9 +51,16 @@ public class Ruleta {
      * @param tipoApuesta tipo de apuesta.
      */
     public ResultadoApuesta iniciarRonda(TipoApuesta tipoApuesta, int monto) {
+        if (!validarMonto(monto)) {
+            throw new IllegalArgumentException("El monto debe ser mayor que cero.");
+        }
+        if (monto > saldo) {
+            throw new IllegalStateException("No hay suficiente saldo para aopostar.");
+        }
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, tipoApuesta);
 
+        saldo += acerto ? monto : -monto;
         registrarResultado(numero, monto, acerto);
         return new ResultadoApuesta(numero, tipoApuesta, monto, acerto);
     }
@@ -88,7 +115,7 @@ public class Ruleta {
      * @return true si es rojo, false en caso contrario.
      */
     private boolean esRojo(int n) {
-        return buscarEnteroArreglo(numerosRojos, n);
+        return buscarEnteroArreglo(NUMEROS_ROJOS, n);
     }
 
     /**
