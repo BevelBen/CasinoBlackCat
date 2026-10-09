@@ -5,6 +5,10 @@ public class Usuario {
     private String password;
     private String nombre;
 
+    public Usuario() {
+        this("invitado", "invitado", "invitado");
+    }
+
     public Usuario(String username, String password, String nombre) {
         this.username = username;
         this.password = password;
