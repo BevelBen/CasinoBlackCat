@@ -29,6 +29,9 @@ public class VentanaRegistro {
         frame.setSize(400, 420);
         frame.setLayout(new GridLayout(10, 1, 5, 5));
 
+        btnRegistrar.addActionListener(e -> registrar());
+        btnVolver.addActionListener(e -> volver());
+
         frame.add(lblNombre);
         frame.add(txtNombre);
         frame.add(lblUsuario);
@@ -44,5 +47,21 @@ public class VentanaRegistro {
         frame.setVisible(true);
     }
 
+    private void registrar() {
+        String clave = new String(txtClave.getPassword());
 
+        try {
+            session.registrarUsuario(txtUsuario.getText().trim(), clave, txtNombre.getText().trim());
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Registro no válido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JOptionPane.showMessageDialog(frame, "Cuenta creada. Ya puedes iniciar sesión.");
+        volver();
+    }
+
+    private void volver() {
+        frame.dispose();
+        new VentanaLogin(session, ruletaController).mostrarVentana();
+    }
 }
