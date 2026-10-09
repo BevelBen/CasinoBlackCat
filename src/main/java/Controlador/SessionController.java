@@ -19,6 +19,10 @@ public class SessionController {
         return usuarioManager.verificarUsuario(usuario);
     }
 
+    public void registrarUsuario(String usuario, String clave, String nombre) {
+        usuarioManager.agregarUsuario(usuario, clave, nombre);
+    }
+
     public boolean iniciarSesion(String usuario, String clave) {
         Usuario usuarioSesion = usuarioManager.buscarUsuario(usuario);
         if (usuarioSesion != null) {
