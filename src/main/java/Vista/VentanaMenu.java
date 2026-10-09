@@ -29,7 +29,7 @@ public class VentanaMenu {
                 new VentanaRuleta(ruletaController).mostrarVentana());
         btnPerfil.addActionListener(e ->
                 new VentanaPerfil(session, ruletaController).mostrarVentana());
-        btnSalir.addActionListener(e -> cerrarSeesion());
+        btnSalir.addActionListener(e -> cerrarSesion());
 
         frame.add(lblBienvenida);
         frame.add(btnJugar);
@@ -39,7 +39,7 @@ public class VentanaMenu {
         actualizarDatos();
     }
 
-    private void cerrarSeesion() {
+    private void cerrarSesion() {
         session.cerrarSesion();
         new VentanaLogin(session, ruletaController).mostrarVentana();
         frame.dispose();
