@@ -1,13 +1,13 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Ruleta {
+    private final ArrayList<ResultadoApuesta> historial = new ArrayList<>();
     private static final int MAX_HISTORIAL = 100;
-    private int[] historialNumeros = new int[MAX_HISTORIAL];
-    private int[] historialApuestas = new int[MAX_HISTORIAL];
-    private boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
-    private int historialSize = 0;
     private int saldo;
     private Random rng = new Random();
     private static final int[] NUMEROS_ROJOS = {
@@ -25,6 +25,10 @@ public class Ruleta {
 
     public int getSaldo() {
         return saldo;
+    }
+
+    public List<ResultadoApuesta> getHistorial() {
+        return Collections.unmodifiableList(historial);
     }
 
     /**
@@ -60,9 +64,10 @@ public class Ruleta {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, tipoApuesta);
 
+        ResultadoApuesta resultado = new ResultadoApuesta(numero, tipoApuesta, monto, acerto);
         saldo += acerto ? monto : -monto;
-        registrarResultado(numero, monto, acerto);
-        return new ResultadoApuesta(numero, tipoApuesta, monto, acerto);
+        registrarResultado(resultado);
+        return resultado;
     }
 
     /**
@@ -93,6 +98,17 @@ public class Ruleta {
     }
 
     /**
+     * Determina si un número corresponde a color rojo.
+     ** @param n número de la ruleta.
+     * @return true si es rojo, false en caso contrario.
+     */
+    private boolean esRojo(int n) {
+        return buscarEnteroArreglo(NUMEROS_ROJOS, n);
+    }
+
+
+
+    /**
      * Determina si un número entero pertenece a un arreglo.
      *
      * @param n número que se desea buscar.
@@ -110,15 +126,6 @@ public class Ruleta {
     }
 
     /**
-     * Determina si un número corresponde a color rojo.
-     ** @param n número de la ruleta.
-     * @return true si es rojo, false en caso contrario.
-     */
-    private boolean esRojo(int n) {
-        return buscarEnteroArreglo(NUMEROS_ROJOS, n);
-    }
-
-    /**
      * Determina si un número es par.
      *e
      * @param n número cuya paridad se verifica.
@@ -129,28 +136,18 @@ public class Ruleta {
     }
 
     /**
-     * Registra los resultados de la ronda en los arreglos
-     * de historial.
-     *
-     * @param numero número obtenido en la ruleta.
-     * @param apuesta monto apostado.
-     * @param acierto si el jugador acertó o no.
-     */
-    private void registrarResultado(int numero, int apuesta, boolean acierto) {
-        if (verificarEspacioHistorial()) {
-            historialNumeros[historialSize] = numero;
-            historialApuestas[historialSize] = apuesta;
-            historialAciertos[historialSize] = acierto;
-            historialSize++;
-        }
-    }
-
-    /**
      * Permite verificar si es que el historial esta lleno.
      *
      * @return true si hay espacio, falso en caso contrario.
      */
     private boolean verificarEspacioHistorial() {
-        return historialSize < MAX_HISTORIAL;
+        return historial.size() < MAX_HISTORIAL;
+    }
+
+    private void registrarResultado(ResultadoApuesta resultado) {
+        if (!verificarEspacioHistorial()) {
+            throw new IllegalStateException("El historial esta lleno.");
+        }
+        historial.add(resultado);
     }
 }

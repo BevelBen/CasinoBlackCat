@@ -4,6 +4,8 @@ import Modelo.ResultadoApuesta;
 import Modelo.Ruleta;
 import Modelo.TipoApuesta;
 
+import java.util.List;
+
 public class RuletaController {
     private final Ruleta ruleta;
 
@@ -17,6 +19,10 @@ public class RuletaController {
 
     public int getSaldo() {
         return ruleta.getSaldo();
+    }
+
+    public List<ResultadoApuesta> getHistorial() {
+        return ruleta.getHistorial();
     }
 
     public void depositar(String monto) {
