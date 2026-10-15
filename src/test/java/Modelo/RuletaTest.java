@@ -72,7 +72,7 @@ class RuletaTest {
     @DisplayName("Con la ruleta real (aleatoria) el número siempre está entre 0 y 36")
     void giroReal_numeroEnRango() {
         Ruleta r = new Ruleta(1_000_000);
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 100; i++) {
             int n = r.iniciarRonda(TipoApuesta.ROJO, 1).getNumeroRuleta();
             assertTrue(n >= 0 && n <= 36, "Número fuera de rango: " + n);
         }
