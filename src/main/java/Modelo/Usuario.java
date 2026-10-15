@@ -1,9 +1,14 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Usuario {
     private String username;
     private String password;
     private String nombre;
+    private List<Resultado> historial;
 
     public Usuario() {
         this("invitado", "invitado", "invitado");
@@ -13,6 +18,8 @@ public class Usuario {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
+
+        this.historial = new ArrayList<>();
     }
 
     // Verifica si las credenciales ingresadas pertenecen al usuario
@@ -30,5 +37,16 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void registrarJugada(Resultado resultado) {
+        if (resultado == null) {
+            throw new IllegalArgumentException("El resultado no puede ser nulo.");
+        }
+        historial.add(resultado);
+    }
+
+    public List<Resultado> getHistorial() {
+        return Collections.unmodifiableList(historial);
     }
 }
