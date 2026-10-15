@@ -23,10 +23,28 @@ public class VentanaHistorial {
         txtHistorial.setEditable(false);
 
         frame.add(new JScrollPane(txtHistorial), BorderLayout.CENTER);
+
+        actualizarDatos();
     }
 
     public void mostrarVentana() {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public void actualizarDatos() {
+        List<ResultadoApuesta> historial = ruletaController.getHistorial();
+
+        if (historial.isEmpty()) {
+            txtHistorial.setText("Aún no se han realizado apuestas.");
+            return;
+        }
+
+        StringBuilder texto = new StringBuilder();
+        for (int i = 0; i < historial.size(); i++) {
+            texto.append("Apuesta ").append(i + 1).append(":\n")
+                    .append(historial.get(i)).append("\n\n");
+        }
+        txtHistorial.setText(texto.toString());
     }
 }
