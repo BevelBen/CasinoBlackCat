@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 
@@ -20,10 +21,12 @@ public class VentanaRegistro {
 
     private final SessionController session;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
-    public VentanaRegistro(SessionController session, RuletaController ruletaController) {
+    public VentanaRegistro(SessionController session, RuletaController ruletaController, ResultadoController resultadoController) {
         this.session = session;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 420);
@@ -32,10 +35,10 @@ public class VentanaRegistro {
         btnRegistrar.addActionListener(e -> registrar());
         btnVolver.addActionListener(e -> volver());
 
-        frame.add(lblNombre);
-        frame.add(txtNombre);
         frame.add(lblUsuario);
         frame.add(txtUsuario);
+        frame.add(lblNombre);
+        frame.add(txtNombre);
         frame.add(lblClave);
         frame.add(txtClave);
         frame.add(btnRegistrar);
@@ -62,6 +65,6 @@ public class VentanaRegistro {
 
     private void volver() {
         frame.dispose();
-        new VentanaLogin(session, ruletaController).mostrarVentana();
+        new VentanaLogin(session, ruletaController, resultadoController).mostrarVentana();
     }
 }

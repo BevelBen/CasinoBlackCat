@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 
@@ -19,10 +20,12 @@ public class VentanaMenu {
 
     private final SessionController session;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
-    public VentanaMenu(SessionController session, RuletaController ruletaController) {
+    public VentanaMenu(SessionController session, RuletaController ruletaController, ResultadoController resultadoController) {
         this.session = session;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 260);
@@ -31,7 +34,7 @@ public class VentanaMenu {
         btnJugar.addActionListener(e ->
                 new VentanaRuleta(ruletaController).mostrarVentana());
         btnHistorial.addActionListener(e ->
-                new VentanaHistorial(ruletaController).mostrarVentana());
+                new VentanaHistorial(resultadoController).mostrarVentana());
         btnPerfil.addActionListener(e ->
                 new VentanaPerfil(session, ruletaController).mostrarVentana());
         btnSalir.addActionListener(e -> cerrarSesion());
@@ -55,7 +58,7 @@ public class VentanaMenu {
 
     private void cerrarSesion() {
         session.cerrarSesion();
-        new VentanaLogin(session, ruletaController).mostrarVentana();
+        new VentanaLogin(session, ruletaController, resultadoController).mostrarVentana();
         frame.dispose();
     }
 

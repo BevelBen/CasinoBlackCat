@@ -1,7 +1,9 @@
 package Launcher;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
+import Modelo.Ruleta;
 import Vista.VentanaLogin;
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -20,8 +22,9 @@ public class Launcher {
         }
 
         SessionController session = new SessionController();
-        RuletaController ruletaController = new RuletaController();
-        VentanaLogin ventana = new VentanaLogin(session, ruletaController);
+        RuletaController ruletaController = new RuletaController(session);
+        ResultadoController resultadoController = new ResultadoController(session);
+        VentanaLogin ventana = new VentanaLogin(session, ruletaController, resultadoController);
         ventana.mostrarVentana();
     }
 }
