@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Ruleta {
-    private final ArrayList<ResultadoApuesta> historial = new ArrayList<>();
+    private final ArrayList<Resultado> historial = new ArrayList<>();
     private static final int MAX_HISTORIAL = 100;
     private int saldo;
     private Random rng = new Random();
@@ -27,7 +27,7 @@ public class Ruleta {
         return saldo;
     }
 
-    public List<ResultadoApuesta> getHistorial() {
+    public List<Resultado> getHistorial() {
         return Collections.unmodifiableList(historial);
     }
 
@@ -54,7 +54,7 @@ public class Ruleta {
      *
      * @param tipoApuesta tipo de apuesta.
      */
-    public ResultadoApuesta iniciarRonda(TipoApuesta tipoApuesta, int monto) {
+    public Resultado iniciarRonda(TipoApuesta tipoApuesta, int monto) {
         if (!validarMonto(monto)) {
             throw new IllegalArgumentException("El monto debe ser mayor que cero.");
         }
@@ -64,7 +64,7 @@ public class Ruleta {
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, tipoApuesta);
 
-        ResultadoApuesta resultado = new ResultadoApuesta(numero, tipoApuesta, monto, acerto);
+        Resultado resultado = new Resultado(numero, tipoApuesta, monto, acerto);
         saldo += acerto ? monto : -monto;
         registrarResultado(resultado);
         return resultado;
@@ -144,7 +144,7 @@ public class Ruleta {
         return historial.size() < MAX_HISTORIAL;
     }
 
-    private void registrarResultado(ResultadoApuesta resultado) {
+    private void registrarResultado(Resultado resultado) {
         if (!verificarEspacioHistorial()) {
             throw new IllegalStateException("El historial esta lleno.");
         }

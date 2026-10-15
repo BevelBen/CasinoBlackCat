@@ -1,12 +1,12 @@
 package Modelo;
 
-public class ResultadoApuesta {
+public class Resultado {
     private int numeroRuleta;
     private TipoApuesta tipoApuesta;
     private int monto;
     private boolean acerto;
 
-    public ResultadoApuesta(int numeroRuleta, TipoApuesta tipoApuesta, int monto, boolean acerto) {
+    public Resultado(int numeroRuleta, TipoApuesta tipoApuesta, int monto, boolean acerto) {
         this.numeroRuleta = numeroRuleta;
         this.tipoApuesta = tipoApuesta;
         this.monto = monto;

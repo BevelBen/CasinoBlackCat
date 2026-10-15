@@ -1,6 +1,6 @@
 package Controlador;
 
-import Modelo.ResultadoApuesta;
+import Modelo.Resultado;
 import Modelo.Ruleta;
 import Modelo.TipoApuesta;
 
@@ -21,7 +21,7 @@ public class RuletaController {
         return ruleta.getSaldo();
     }
 
-    public List<ResultadoApuesta> getHistorial() {
+    public List<Resultado> getHistorial() {
         return ruleta.getHistorial();
     }
 
@@ -29,7 +29,7 @@ public class RuletaController {
         ruleta.depositar(parsearMonto(monto));
     }
 
-    public ResultadoApuesta realizarApuesta(TipoApuesta tipoApuesta, String monto) {
+    public Resultado realizarApuesta(TipoApuesta tipoApuesta, String monto) {
         return ruleta.iniciarRonda(tipoApuesta, parsearMonto(monto));
     }
 

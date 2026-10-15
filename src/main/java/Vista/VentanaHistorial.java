@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.RuletaController;
-import Modelo.ResultadoApuesta;
+import Modelo.Resultado;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public class VentanaHistorial {
     }
 
     public void actualizarDatos() {
-        List<ResultadoApuesta> historial = ruletaController.getHistorial();
+        List<Resultado> historial = ruletaController.getHistorial();
 
         if (historial.isEmpty()) {
             txtHistorial.setText("Aún no se han realizado apuestas.");
