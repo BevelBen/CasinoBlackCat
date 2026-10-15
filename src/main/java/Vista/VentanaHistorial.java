@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Modelo.Resultado;
 
@@ -11,10 +12,10 @@ public class VentanaHistorial {
     private final JFrame frame = new JFrame("Historial - Casino Black Cat");
     private final JTextArea txtHistorial = new JTextArea();
 
-    private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
-    public VentanaHistorial(RuletaController ruletaController) {
-        this.ruletaController = ruletaController;
+    public VentanaHistorial(ResultadoController resultadoController) {
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(450, 400);
@@ -33,7 +34,7 @@ public class VentanaHistorial {
     }
 
     public void actualizarDatos() {
-        List<Resultado> historial = ruletaController.getHistorial();
+        List<String> historial = resultadoController.obtenerHistorial();
 
         if (historial.isEmpty()) {
             txtHistorial.setText("Aún no se han realizado apuestas.");
