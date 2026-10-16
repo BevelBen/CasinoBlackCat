@@ -4,58 +4,42 @@ import Modelo.Resultado;
 import Modelo.Ruleta;
 import Modelo.TipoApuesta;
 
-import java.util.List;
-
 public class RuletaController {
     private final Ruleta ruleta;
-    private final SessionController session;
+    private final SessionController sessionController;
 
-    public RuletaController() {
-        this(new Ruleta(), new SessionController());
+    public RuletaController(SessionController sessionController) {
+        this(new Ruleta(), sessionController);
     }
 
-    public RuletaController(Ruleta ruleta) {
-        this(ruleta, new SessionController());
-    }
-
-    public RuletaController(SessionController session) {
-        this(new Ruleta(), session);
-    }
-
-    public RuletaController(Ruleta ruleta, SessionController session) {
+    public RuletaController(Ruleta ruleta, SessionController sessionController) {
         this.ruleta = ruleta;
-        this.session = session;
+        this.sessionController = sessionController;
     }
 
-    public int getSaldo() {
-        return ruleta.getSaldo();
+    /**
+     * Realiza una apuesta desde la ruleta y devuelve el resultado.
+     * @param tipoApuesta el tipo de apuesta en enum.
+     * @param monto el monto apostado.
+     * @return el resultado como un objeto del tipo Resultado.
+     */
+    public Resultado realizarApuesta(TipoApuesta tipoApuesta, String monto) {
+        int montoEntero = parsearMonto(monto);
+        if (sessionController.getSaldo() < montoEntero) {
+            throw new IllegalArgumentException("No hay suficiente saldo para realizar la apuesta.");
+        }
+        return ruleta.iniciarRonda(tipoApuesta, montoEntero);
     }
 
-    public void setSaldo(int saldo) {
-        ruleta.setSaldo(saldo);
-    }
-
-    public List<Resultado> getHistorial() {
-        return ruleta.getHistorial();
-    }
-
-    public void depositar(String monto) {
-        ruleta.depositar(parsearMonto(monto));
-        session.setSaldo(parsearMonto(monto));
-    }
-
-    public String realizarApuesta(TipoApuesta tipoApuesta, String monto) {
-        Resultado resultado = ruleta.iniciarRonda(tipoApuesta, parsearMonto(monto));
-        session.setSaldo(ruleta.getSaldo());
-        session.registrarJugada(resultado);
-        return resultado.toString();
-    }
-
+    /**
+     * Convierte una cadena de texto a una cantidad entera.
+     * @param montoTexto la cantidad en forma de cadena.
+     * @return la cantidad en foram de entero.
+     */
     private int parsearMonto(String montoTexto) {
         if (montoTexto == null) {
             throw new IllegalArgumentException("El monto ingresado debe ser un número.");
-        }
-        try {
+        } try {
             return Integer.parseInt(montoTexto.trim());
         } catch (NumberFormatException e){
             throw new IllegalArgumentException("El monto debe ser un número entero.");
