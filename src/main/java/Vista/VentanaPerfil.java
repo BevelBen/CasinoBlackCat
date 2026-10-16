@@ -16,12 +16,10 @@ public class VentanaPerfil {
     private final JTextField txtRecarga = new JTextField();
     private final JButton btnRecargar = new JButton("Recargar saldo");
 
-    private final SessionController session;
-    private final RuletaController ruletaController;
+    private final SessionController sessionController;
 
-    public VentanaPerfil(SessionController session, RuletaController ruletaController) {
-        this.session = session;
-        this.ruletaController = ruletaController;
+    public VentanaPerfil(SessionController sessionController) {
+        this.sessionController = sessionController;
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 320);
@@ -37,7 +35,7 @@ public class VentanaPerfil {
         frame.add(txtRecarga);
         frame.add(btnRecargar);
 
-        txtNombre.setText(session.getNombreUsuario());
+        txtNombre.setText(sessionController.getNombreUsuario());
         actualizarSaldo();
     }
 
@@ -47,24 +45,24 @@ public class VentanaPerfil {
     }
 
     private void actualizarSaldo() {
-        lblSaldo.setText("Saldo actual: $" + ruletaController.getSaldo() + " | Monto a recargar:");
+        lblSaldo.setText("Saldo actual: $" + sessionController.getSaldo() + " | Monto a recargar:");
     }
 
     private void guardarNombre() {
         try {
-            session.cambiarNombre(txtNombre.getText());
+            sessionController.cambiarNombre(txtNombre.getText());
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Nombre no válido", JOptionPane.WARNING_MESSAGE);
-            txtNombre.setText(session.getNombreUsuario());
+            txtNombre.setText(sessionController.getNombreUsuario());
             return;
         }
-        txtNombre.setText(session.getNombreUsuario());
+        txtNombre.setText(sessionController.getNombreUsuario());
         JOptionPane.showMessageDialog(frame, "Nombre actualizado.");
     }
 
     private void recargar() {
         try {
-            ruletaController.depositar(txtRecarga.getText());
+            sessionController.depositar(txtRecarga.getText());
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(frame, ex.getMessage(), "Recarga no válida", JOptionPane.WARNING_MESSAGE);
             return;

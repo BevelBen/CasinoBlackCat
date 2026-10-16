@@ -1,13 +1,14 @@
 package Vista;
 
 import Controlador.RuletaController;
+import Controlador.SessionController;
+import Modelo.Resultado;
 import Modelo.TipoApuesta;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRuleta {
-    // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Ruleta - Casino Black Cat");
     private final JLabel lblSaldo = new JLabel();
     private final JLabel lblMonto = new JLabel("Ingrese el monto deseado:");
@@ -16,10 +17,12 @@ public class VentanaRuleta {
     private final JComboBox<TipoApuesta> cboApuestas =new JComboBox<>(TipoApuesta.values());
     private final JButton btnApostar = new JButton("Apostar");
 
+    private final SessionController sessionController;
     private final RuletaController ruletaController;
 
-    public VentanaRuleta(RuletaController ruletaController) {
-        this.ruletaController = ruletaController;
+    public VentanaRuleta(SessionController sessionController) {
+        this.sessionController = sessionController;
+        this.ruletaController = new RuletaController(sessionController);
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 200);
@@ -43,18 +46,22 @@ public class VentanaRuleta {
     }
 
     public void actualizarEstado() {
-        lblSaldo.setText("Estado actual: " + ruletaController.getSaldo());
+        lblSaldo.setText("Estado actual: " + sessionController.getSaldo());
     }
 
     private void apostarRuleta() {
         TipoApuesta tipoApuesta = (TipoApuesta) cboApuestas.getSelectedItem();
+        Resultado resultado;
 
         try {
-            JOptionPane.showMessageDialog(frame, ruletaController.realizarApuesta(tipoApuesta, txtMonto.getText()));
+            resultado = ruletaController.realizarApuesta(tipoApuesta, txtMonto.getText());
+            JOptionPane.showMessageDialog(frame, resultado);
         } catch (IllegalArgumentException | IllegalStateException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Apuesta no válida", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        sessionController.depositar(resultado.getMontoGanado());
+        sessionController.registrarJugada(resultado);
         actualizarEstado();
     }
 }

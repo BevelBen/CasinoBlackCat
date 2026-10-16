@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaLogin {
-    // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
     private final JTextField txtUsuario = new JTextField();
@@ -17,18 +16,14 @@ public class VentanaLogin {
     private final JButton btnIngresar = new JButton("Ingresar");
     private final JButton btnRegistrarse = new JButton("Registrarse");
 
-    private SessionController session;
-    private RuletaController ruletaController;
-    private ResultadoController resultadoController;
+    private SessionController sessionController;
 
     /**
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin(SessionController session, RuletaController ruletaController, ResultadoController resultadoController) {
-        this.session = session;
-        this.ruletaController = ruletaController;
-        this.resultadoController = resultadoController;
+    public VentanaLogin(SessionController sessionController) {
+        this.sessionController = sessionController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
@@ -61,26 +56,23 @@ public class VentanaLogin {
      */
     private void login() {
         String usuarioIngresado = txtUsuario.getText();
-        char[] arrayClave = txtClave.getPassword();
-        String claveIngresada = new String(arrayClave);
+        String claveIngresada = new String(txtClave.getPassword());
 
-        if (!session.verificarUsuario(usuarioIngresado)) {
+        if (!sessionController.verificarUsuario(usuarioIngresado)) {
             JOptionPane.showMessageDialog(frame, "El usuario que intento buscar no se encuentra en la base de datos, intente denuevo.", "Usuario No Encontrado", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!session.iniciarSesion(usuarioIngresado, claveIngresada)) {
+        if (!sessionController.iniciarSesion(usuarioIngresado, claveIngresada)) {
             JOptionPane.showMessageDialog(frame, "La contraseña ingresada no es correcta, intente denuevo.", "Contraseña Equivocada", JOptionPane.WARNING_MESSAGE);
             return;
         }
         frame.dispose();
-        ruletaController.setSaldo(session.getSaldo());
-        VentanaMenu ventanaMenu = new VentanaMenu(session, ruletaController, resultadoController);
-        ventanaMenu.mostrarVentana();
+        new VentanaMenu(sessionController).mostrarVentana();
     }
 
     private void registrarse() {
         frame.dispose();
-        VentanaRegistro ventanaRegistro = new VentanaRegistro(session, ruletaController, resultadoController);
+        VentanaRegistro ventanaRegistro = new VentanaRegistro(sessionController);
         ventanaRegistro.mostrarVentana();
     }
 }

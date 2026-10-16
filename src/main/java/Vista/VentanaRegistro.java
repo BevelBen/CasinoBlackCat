@@ -1,14 +1,11 @@
 package Vista;
 
-import Controlador.ResultadoController;
-import Controlador.RuletaController;
 import Controlador.SessionController;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRegistro {
-    // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
     private final JLabel lblNombre = new JLabel("Nombre:");
     private final JTextField txtNombre = new JTextField();
@@ -20,13 +17,9 @@ public class VentanaRegistro {
     private final JButton btnVolver = new JButton("Volver al login");
 
     private final SessionController session;
-    private final RuletaController ruletaController;
-    private final ResultadoController resultadoController;
 
-    public VentanaRegistro(SessionController session, RuletaController ruletaController, ResultadoController resultadoController) {
+    public VentanaRegistro(SessionController session) {
         this.session = session;
-        this.ruletaController = ruletaController;
-        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 420);
@@ -51,10 +44,8 @@ public class VentanaRegistro {
     }
 
     private void registrar() {
-        String clave = new String(txtClave.getPassword());
-
         try {
-            session.registrarUsuario(txtUsuario.getText().trim(), clave, txtNombre.getText().trim());
+            session.registrarUsuario(txtUsuario.getText().trim(), new String(txtClave.getPassword()), txtNombre.getText().trim());
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Registro no válido", JOptionPane.WARNING_MESSAGE);
             return;
@@ -65,6 +56,6 @@ public class VentanaRegistro {
 
     private void volver() {
         frame.dispose();
-        new VentanaLogin(session, ruletaController, resultadoController).mostrarVentana();
+        new VentanaLogin(session).mostrarVentana();
     }
 }

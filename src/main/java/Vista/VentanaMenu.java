@@ -1,7 +1,5 @@
 package Vista;
 
-import Controlador.ResultadoController;
-import Controlador.RuletaController;
 import Controlador.SessionController;
 
 import javax.swing.*;
@@ -19,24 +17,20 @@ public class VentanaMenu {
     private final JButton btnSalir = new JButton("Salir");
 
     private final SessionController session;
-    private final RuletaController ruletaController;
-    private final ResultadoController resultadoController;
 
-    public VentanaMenu(SessionController session, RuletaController ruletaController, ResultadoController resultadoController) {
+    public VentanaMenu(SessionController session) {
         this.session = session;
-        this.ruletaController = ruletaController;
-        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 260);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
 
         btnJugar.addActionListener(e ->
-                new VentanaRuleta(ruletaController).mostrarVentana());
+                new VentanaRuleta(session).mostrarVentana());
         btnHistorial.addActionListener(e ->
-                new VentanaHistorial(resultadoController).mostrarVentana());
+                new VentanaHistorial(session).mostrarVentana());
         btnPerfil.addActionListener(e ->
-                new VentanaPerfil(session, ruletaController).mostrarVentana());
+                 new VentanaPerfil(session).mostrarVentana());
         btnSalir.addActionListener(e -> cerrarSesion());
 
         frame.addWindowListener(new WindowAdapter() {
@@ -58,13 +52,13 @@ public class VentanaMenu {
 
     private void cerrarSesion() {
         session.cerrarSesion();
-        new VentanaLogin(session, ruletaController, resultadoController).mostrarVentana();
+        new VentanaLogin(session).mostrarVentana();
         frame.dispose();
     }
 
     public void actualizarDatos() {
         lblBienvenida.setText("Bienvenido, " + session.getNombreUsuario());
-        lblSaldo.setText("Saldo actual: $" + ruletaController.getSaldo());
+        lblSaldo.setText("Saldo actual: $" + session.getSaldo());
     }
 
     public void mostrarVentana() {
