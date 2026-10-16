@@ -23,7 +23,7 @@ public class UsuarioManager {
      * @param username username que se desea buscar.
      * @return el usuario que se encontró.
      */
-    private Usuario buscarUsuario(String username) {
+    public Usuario buscarUsuario(String username) {
         for (Usuario u : listaUsuarios) {
             if (u.getUsername().equals(username)) {
                 return u;
@@ -86,5 +86,13 @@ public class UsuarioManager {
             throw new IllegalArgumentException("No existe el usuario.");
         }
         usuario.setNombre(nombre);
+    }
+
+    public boolean validarCredenciales(String username, String password) {
+        Usuario usuario = buscarUsuario(username);
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario no existe.");
+        }
+        return usuario.validarCredenciales(password);
     }
 }
