@@ -1,42 +1,13 @@
 package Modelo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class Ruleta {
-    private final ArrayList<Resultado> historial = new ArrayList<>();
-    private static final int MAX_HISTORIAL = 100;
-    private int saldo;
     private Random rng = new Random();
     private static final int[] NUMEROS_ROJOS = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
-
-    public Ruleta() {
-        this(0);
-    }
-
-    public Ruleta(int saldo) {
-        this.saldo = saldo;
-    }
-
-    public int getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(int saldo) {
-        if (saldo < 0) {
-            throw new IllegalArgumentException("El saldo no puede ser negativo.");
-        }
-        this.saldo = saldo;
-    }
-
-    public List<Resultado> getHistorial() {
-        return Collections.unmodifiableList(historial);
-    }
 
     /**
      * Valida que el número ingresado sea mayor que cero.
@@ -46,13 +17,6 @@ public class Ruleta {
      */
     public boolean validarMonto(int monto) {
         return (monto > 0);
-    }
-
-    public void depositar(int monto) {
-        if (!validarMonto(monto)) {
-            throw new IllegalArgumentException("El monto a depositar debe ser mayor que cero.");
-        }
-        saldo += monto;
     }
 
     /**
@@ -65,15 +29,10 @@ public class Ruleta {
         if (!validarMonto(monto)) {
             throw new IllegalArgumentException("El monto debe ser mayor que cero.");
         }
-        if (monto > saldo) {
-            throw new IllegalStateException("No hay suficiente saldo para apostar.");
-        }
         int numero = girarRuleta();
         boolean acerto = evaluarResultado(numero, tipoApuesta);
 
         Resultado resultado = new Resultado(numero, tipoApuesta, monto, acerto);
-        saldo += acerto ? monto : -monto;
-        registrarResultado(resultado);
         return resultado;
     }
 
@@ -113,7 +72,15 @@ public class Ruleta {
         return buscarEnteroArreglo(NUMEROS_ROJOS, n);
     }
 
-
+    /**
+     * Determina si un número es par.
+     *e
+     * @param n número cuya paridad se verifica.
+     * @return true si es par, false en caso contrario.
+     */
+    private boolean esPar(int n) {
+        return n % 2 == 0;
+    }
 
     /**
      * Determina si un número entero pertenece a un arreglo.
@@ -130,31 +97,5 @@ public class Ruleta {
             i++;
         }
         return false;
-    }
-
-    /**
-     * Determina si un número es par.
-     *e
-     * @param n número cuya paridad se verifica.
-     * @return true si es par, false en caso contrario.
-     */
-    private boolean esPar(int n) {
-        return n % 2 == 0;
-    }
-
-    /**
-     * Permite verificar si es que el historial esta lleno.
-     *
-     * @return true si hay espacio, falso en caso contrario.
-     */
-    private boolean verificarEspacioHistorial() {
-        return historial.size() < MAX_HISTORIAL;
-    }
-
-    private void registrarResultado(Resultado resultado) {
-        if (!verificarEspacioHistorial()) {
-            throw new IllegalStateException("El historial esta lleno.");
-        }
-        historial.add(resultado);
     }
 }
