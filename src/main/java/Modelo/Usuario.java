@@ -11,10 +11,6 @@ public class Usuario {
     private int saldo;
     private List<Resultado> historial;
 
-    public Usuario() {
-        this("invitado", "invitado", "invitado");
-    }
-
     public Usuario(String username, String password, String nombre) {
         this(username, password, nombre, 0);
     }
@@ -26,11 +22,6 @@ public class Usuario {
         this.saldo = saldo;
 
         this.historial = new ArrayList<>();
-    }
-
-    // Verifica si las credenciales ingresadas pertenecen al usuario
-    public boolean validarCredenciales(String p) {
-        return (password.equals(p));
     }
 
     public String getNombre() {
@@ -56,14 +47,30 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    /**
+     * @return el historial como una lista no modificable.
+     */
+    public List<Resultado> getHistorial() {
+        return Collections.unmodifiableList(historial);
+    }
+
+    /**
+     * Verifica las credenciales del usuario.
+     * @param password la clave que se desea verificar.
+     * @return true si las credenciales son correctas, false en caso contrario.
+     */
+    public boolean validarCredenciales(String password) {
+        return (password.equals(password));
+    }
+
+    /**
+     * Registra un resultado en el historial del usuario.
+     * @param resultado el resultado que se desea guardar.
+     */
     public void registrarJugada(Resultado resultado) {
         if (resultado == null) {
             throw new IllegalArgumentException("El resultado no puede ser nulo.");
         }
         historial.add(resultado);
-    }
-
-    public List<Resultado> getHistorial() {
-        return Collections.unmodifiableList(historial);
     }
 }
