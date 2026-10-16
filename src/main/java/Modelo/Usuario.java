@@ -8,6 +8,7 @@ public class Usuario {
     private String username;
     private String password;
     private String nombre;
+    private int saldo;
     private List<Resultado> historial;
 
     public Usuario() {
@@ -15,9 +16,14 @@ public class Usuario {
     }
 
     public Usuario(String username, String password, String nombre) {
+        this(username, password, nombre, 0);
+    }
+
+    public Usuario(String username, String password, String nombre, int saldo) {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
+        this.saldo = saldo;
 
         this.historial = new ArrayList<>();
     }
@@ -33,6 +39,17 @@ public class Usuario {
 
     public String getUsername() {
         return username;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        if (saldo < 0) {
+            throw new IllegalArgumentException("El saldo no puede ser negativo.");
+        }
+        this.saldo = saldo;
     }
 
     public void setNombre(String nombre) {

@@ -3,7 +3,6 @@ package Controlador;
 import Modelo.Resultado;
 import Modelo.Ruleta;
 import Modelo.TipoApuesta;
-import Modelo.Usuario;
 
 import java.util.List;
 
@@ -32,18 +31,23 @@ public class RuletaController {
         return ruleta.getSaldo();
     }
 
+    public void setSaldo(int saldo) {
+        ruleta.setSaldo(saldo);
+    }
+
     public List<Resultado> getHistorial() {
         return ruleta.getHistorial();
     }
 
     public void depositar(String monto) {
         ruleta.depositar(parsearMonto(monto));
+        session.setSaldo(parsearMonto(monto));
     }
 
     public String realizarApuesta(TipoApuesta tipoApuesta, String monto) {
-        Usuario usuario = obtenerUsuario();
         Resultado resultado = ruleta.iniciarRonda(tipoApuesta, parsearMonto(monto));
-        usuario.registrarJugada(resultado);
+        session.setSaldo(ruleta.getSaldo());
+        session.registrarJugada(resultado);
         return resultado.toString();
     }
 
@@ -56,13 +60,5 @@ public class RuletaController {
         } catch (NumberFormatException e){
             throw new IllegalArgumentException("El monto debe ser un número entero.");
         }
-    }
-
-    private Usuario obtenerUsuario() {
-        Usuario usuario = session.getUsuarioActual();
-        if (usuario == null) {
-            throw new IllegalStateException("No hay usuario.");
-        }
-        return usuario;
     }
 }

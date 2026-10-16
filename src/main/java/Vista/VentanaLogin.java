@@ -3,7 +3,6 @@ package Vista;
 import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
-import Modelo.Resultado;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,6 +73,7 @@ public class VentanaLogin {
             return;
         }
         frame.dispose();
+        ruletaController.setSaldo(session.getSaldo());
         VentanaMenu ventanaMenu = new VentanaMenu(session, ruletaController, resultadoController);
         ventanaMenu.mostrarVentana();
     }

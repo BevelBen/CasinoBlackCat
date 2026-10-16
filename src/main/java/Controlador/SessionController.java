@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Resultado;
 import Modelo.Usuario;
 import Modelo.UsuarioManager;
 
@@ -44,6 +45,17 @@ public class SessionController {
         usuarioActual.setNombre(nombre);
     }
 
+    public int getSaldo() {
+        return usuarioActual.getSaldo();
+    }
+
+    public void setSaldo(int saldo) {
+        if (usuarioActual == null) {
+            throw new IllegalArgumentException("No hay una sesión.");
+        }
+        usuarioActual.setSaldo(saldo);
+    }
+
     public boolean hayUsuario() {
         return usuarioActual != null;
     }
@@ -58,5 +70,12 @@ public class SessionController {
 
     public void cerrarSesion() {
         usuarioActual = null;
+    }
+
+    public void registrarJugada(Resultado resultado) {
+        if (usuarioActual == null) {
+            throw new IllegalStateException("No hay sesión.");
+        }
+        usuarioActual.registrarJugada(resultado);
     }
 }

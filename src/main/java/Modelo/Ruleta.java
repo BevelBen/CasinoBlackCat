@@ -27,6 +27,13 @@ public class Ruleta {
         return saldo;
     }
 
+    public void setSaldo(int saldo) {
+        if (saldo < 0) {
+            throw new IllegalArgumentException("El saldo no puede ser negativo.");
+        }
+        this.saldo = saldo;
+    }
+
     public List<Resultado> getHistorial() {
         return Collections.unmodifiableList(historial);
     }
