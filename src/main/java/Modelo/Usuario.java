@@ -73,4 +73,12 @@ public class Usuario {
         }
         historial.add(resultado);
     }
+
+    /**
+     * Agrega una cantidad de saldo al usuario.
+     * @param saldo el saldo que se desea agregar.
+     */
+    public void agregarSaldo(int saldo) {
+        this.saldo += saldo;
+    }
 }
