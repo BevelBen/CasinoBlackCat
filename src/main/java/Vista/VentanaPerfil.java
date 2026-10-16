@@ -1,6 +1,5 @@
 package Vista;
 
-import Controlador.RuletaController;
 import Controlador.SessionController;
 
 import javax.swing.*;

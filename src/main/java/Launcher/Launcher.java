@@ -7,7 +7,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
 
 public class Launcher {
-    public void main(String[] args) {
+    void main() {
 
         // APARIENCIA CON FLATLAF
         try {

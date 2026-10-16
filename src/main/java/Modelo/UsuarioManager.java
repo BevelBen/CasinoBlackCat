@@ -3,7 +3,7 @@ package Modelo;
 import java.util.ArrayList;
 
 public class UsuarioManager {
-    private final ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     public UsuarioManager() {
         listaUsuarios.add(new Usuario("benjamin", "123", "Benjamin"));
