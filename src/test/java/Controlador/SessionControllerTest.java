@@ -42,7 +42,7 @@ class SessionControllerTest {
     @Test
     @DisplayName("iniciarSesion con un usuario inexistente falla")
     void iniciarSesion_usuarioInexistente() {
-        assertFalse(session.iniciarSesion("fantasma", "123"));
+        assertThrows(IllegalArgumentException.class, () -> session.iniciarSesion("fantasma", "123"));
         assertFalse(session.hayUsuario());
     }
 

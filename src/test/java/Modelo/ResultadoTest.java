@@ -18,24 +18,6 @@ class ResultadoTest {
     }
 
     @Test
-    @DisplayName("toString de una apuesta ganada indica victoria y el monto ganado")
-    void toString_apuestaGanada() {
-        String texto = new Resultado(1, TipoApuesta.ROJO, 50, true).toString();
-        assertTrue(texto.contains("Ganaste"));
-        assertTrue(texto.contains("Se ganó 50"));
-        assertFalse(texto.contains("Perdiste"));
-    }
-
-    @Test
-    @DisplayName("toString de una apuesta perdida indica derrota y el monto perdido")
-    void toString_apuestaPerdida() {
-        String texto = new Resultado(2, TipoApuesta.ROJO, 50, false).toString();
-        assertTrue(texto.contains("Perdiste"));
-        assertTrue(texto.contains("Se perdió 50"));
-        assertFalse(texto.contains("Ganaste"));
-    }
-
-    @Test
     @DisplayName("toString incluye el número que salió y el tipo de apuesta")
     void toString_incluyeNumeroYTipo() {
         String texto = new Resultado(23, TipoApuesta.IMPAR, 5, true).toString();

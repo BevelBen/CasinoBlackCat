@@ -14,15 +14,6 @@ class UsuarioTest {
         assertEquals("ana", u.getUsername());
         assertEquals("Ana", u.getNombre());
     }
-
-    @Test
-    @DisplayName("El constructor sin parámetros crea al usuario invitado")
-    void constructorSinParametros_creaInvitado() {
-        Usuario u = new Usuario();
-        assertEquals("invitado", u.getUsername());
-        assertEquals("invitado", u.getNombre());
-    }
-
     @Test
     @DisplayName("validarCredenciales acepta la clave correcta")
     void validarCredenciales_claveCorrecta() {

@@ -60,6 +60,9 @@ public class Usuario {
      * @return true si las credenciales son correctas, false en caso contrario.
      */
     public boolean validarCredenciales(String password) {
+        if (password == null) {
+            return false;
+        }
         return (password.equals(this.password));
     }
 
