@@ -1,5 +1,6 @@
 package Launcher;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 import Vista.VentanaLogin;
@@ -19,6 +20,7 @@ public class Launcher {
 
         SessionController sessionController = new SessionController();
         RuletaController ruletaController = new RuletaController(sessionController);
-        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
+        ResultadoController resultadoController = new ResultadoController(sessionController);
+        new VentanaLogin(sessionController, ruletaController, resultadoController).mostrarVentana();
     }
 }

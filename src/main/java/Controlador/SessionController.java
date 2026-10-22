@@ -32,6 +32,9 @@ public class SessionController {
      * @param nombre el nombre del usuario.
      */
     public void registrarUsuario(String username, String clave, String nombre) {
+        if (usuarioManager.verificarUsuario(username)) {
+            throw new IllegalStateException("El usuario ya existe.");
+        }
         usuarioManager.agregarUsuario(username, clave, nombre);
     }
 

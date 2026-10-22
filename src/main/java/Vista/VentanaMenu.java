@@ -16,10 +16,12 @@ public class VentanaMenu {
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
-    public VentanaMenu(SessionController sessionController, RuletaController ruletaController) {
+    public VentanaMenu(SessionController sessionController, RuletaController ruletaController, ResultadoController resultadoController) {
         this.sessionController = sessionController;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 260);
@@ -30,7 +32,7 @@ public class VentanaMenu {
                 new VentanaRuleta(ruletaController).mostrarVentana());
         JButton btnHistorial = new JButton("Ver el historial");
         btnHistorial.addActionListener(e ->
-                new VentanaHistorial(new ResultadoController(sessionController)).mostrarVentana());
+                new VentanaHistorial(resultadoController).mostrarVentana());
         JButton btnPerfil = new JButton("Mi perfil");
         btnPerfil.addActionListener(e ->
                  new VentanaPerfil(sessionController).mostrarVentana());
@@ -56,7 +58,7 @@ public class VentanaMenu {
 
     private void cerrarSesion() {
         sessionController.cerrarSesion();
-        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
+        new VentanaLogin(sessionController, ruletaController, resultadoController).mostrarVentana();
         frame.dispose();
     }
 

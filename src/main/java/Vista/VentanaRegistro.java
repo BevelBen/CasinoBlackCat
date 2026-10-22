@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 
@@ -14,10 +15,12 @@ public class VentanaRegistro {
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
-    public VentanaRegistro(SessionController session, RuletaController ruletaController) {
-        this.sessionController = session;
+    public VentanaRegistro(SessionController sessionController, RuletaController ruletaController, ResultadoController resultadoController) {
+        this.sessionController = sessionController;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 420);
@@ -49,7 +52,7 @@ public class VentanaRegistro {
     private void registrar() {
         try {
             sessionController.registrarUsuario(txtUsuario.getText().trim(), new String(txtClave.getPassword()), txtNombre.getText().trim());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Registro no válido", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -59,6 +62,6 @@ public class VentanaRegistro {
 
     private void volver() {
         frame.dispose();
-        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
+        new VentanaLogin(sessionController, ruletaController, resultadoController).mostrarVentana();
     }
 }

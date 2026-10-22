@@ -36,8 +36,8 @@ public class Resultado {
     @Override
     public String toString() {
         return "El número que salio de la ruleta fue " + numeroRuleta +
-                ".\n El tipo de apuesta fue " + tipoApuesta +
-                ".\n El monto apostado fue de " + monto +
+                ".\nEl tipo de apuesta fue " + tipoApuesta +
+                ".\nEl monto apostado fue de " + monto +
                 ".\n" + (acerto ? "Ganaste, se ganó " + monto + "." : "Perdiste, se perdió " + monto + ".");
     }
 }

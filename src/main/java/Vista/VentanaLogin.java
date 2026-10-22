@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 
@@ -13,14 +14,16 @@ public class VentanaLogin {
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
 
     /**
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin(SessionController sessionController, RuletaController ruletaController) {
+    public VentanaLogin(SessionController sessionController, RuletaController ruletaController, ResultadoController resultadoController) {
         this.sessionController = sessionController;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
@@ -68,12 +71,12 @@ public class VentanaLogin {
             return;
         }
         frame.dispose();
-        new VentanaMenu(sessionController, ruletaController).mostrarVentana();
+        new VentanaMenu(sessionController, ruletaController, resultadoController).mostrarVentana();
     }
 
     private void registrarse() {
         frame.dispose();
-        VentanaRegistro ventanaRegistro = new VentanaRegistro(sessionController, ruletaController);
+        VentanaRegistro ventanaRegistro = new VentanaRegistro(sessionController, ruletaController, resultadoController);
         ventanaRegistro.mostrarVentana();
     }
 }
