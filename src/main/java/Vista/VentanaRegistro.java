@@ -1,6 +1,8 @@
 package Vista;
 
+import Controlador.RuletaController;
 import Controlador.SessionController;
+import Modelo.Ruleta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +18,12 @@ public class VentanaRegistro {
     private final JButton btnRegistrar = new JButton("Crear cuenta");
     private final JButton btnVolver = new JButton("Volver al login");
 
-    private final SessionController session;
+    private final SessionController sessionController;
+    private final RuletaController ruletaController;
 
-    public VentanaRegistro(SessionController session) {
-        this.session = session;
+    public VentanaRegistro(SessionController session, RuletaController ruletaController) {
+        this.sessionController = session;
+        this.ruletaController = ruletaController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 420);
@@ -45,7 +49,7 @@ public class VentanaRegistro {
 
     private void registrar() {
         try {
-            session.registrarUsuario(txtUsuario.getText().trim(), new String(txtClave.getPassword()), txtNombre.getText().trim());
+            sessionController.registrarUsuario(txtUsuario.getText().trim(), new String(txtClave.getPassword()), txtNombre.getText().trim());
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Registro no válido", JOptionPane.WARNING_MESSAGE);
             return;
@@ -56,6 +60,6 @@ public class VentanaRegistro {
 
     private void volver() {
         frame.dispose();
-        new VentanaLogin(session).mostrarVentana();
+        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
     }
 }

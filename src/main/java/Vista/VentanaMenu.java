@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.RuletaController;
 import Controlador.SessionController;
 
 import javax.swing.*;
@@ -16,21 +17,23 @@ public class VentanaMenu {
     private final JButton btnPerfil = new JButton("Mi perfil");
     private final JButton btnSalir = new JButton("Salir");
 
-    private final SessionController session;
+    private final SessionController sessionController;
+    private final RuletaController ruletaController;
 
-    public VentanaMenu(SessionController session) {
-        this.session = session;
+    public VentanaMenu(SessionController sessionController, RuletaController ruletaController) {
+        this.sessionController = sessionController;
+        this.ruletaController = ruletaController;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 260);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
 
         btnJugar.addActionListener(e ->
-                new VentanaRuleta(session).mostrarVentana());
+                new VentanaRuleta(ruletaController).mostrarVentana());
         btnHistorial.addActionListener(e ->
-                new VentanaHistorial(session).mostrarVentana());
+                new VentanaHistorial(sessionController).mostrarVentana());
         btnPerfil.addActionListener(e ->
-                 new VentanaPerfil(session).mostrarVentana());
+                 new VentanaPerfil(sessionController).mostrarVentana());
         btnSalir.addActionListener(e -> cerrarSesion());
 
         frame.addWindowListener(new WindowAdapter() {
@@ -51,14 +54,14 @@ public class VentanaMenu {
     }
 
     private void cerrarSesion() {
-        session.cerrarSesion();
-        new VentanaLogin(session).mostrarVentana();
+        sessionController.cerrarSesion();
+        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
         frame.dispose();
     }
 
     public void actualizarDatos() {
-        lblBienvenida.setText("Bienvenido, " + session.getNombreUsuario());
-        lblSaldo.setText("Saldo actual: $" + session.getSaldo());
+        lblBienvenida.setText("Bienvenido, " + sessionController.getNombreUsuario());
+        lblSaldo.setText("Saldo actual: $" + sessionController.getSaldo());
     }
 
     public void mostrarVentana() {

@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Usuario {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private String nombre;
     private int saldo;
-    private List<Resultado> historial;
+    private final List<Resultado> historial;
 
     public Usuario(String username, String password, String nombre) {
         this(username, password, nombre, 0);

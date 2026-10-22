@@ -1,5 +1,6 @@
 package Launcher;
 
+import Controlador.RuletaController;
 import Controlador.SessionController;
 import Vista.VentanaLogin;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -18,6 +19,8 @@ public class Launcher {
             e.printStackTrace();
         }
 
-        new VentanaLogin(new SessionController()).mostrarVentana();
+        SessionController sessionController = new SessionController();
+        RuletaController ruletaController = new RuletaController(sessionController);
+        new VentanaLogin(sessionController, ruletaController).mostrarVentana();
     }
 }

@@ -11,11 +11,9 @@ public class VentanaHistorial {
     private final JFrame frame = new JFrame("Historial - Casino Black Cat");
     private final JTextArea txtHistorial = new JTextArea();
 
-    private final SessionController sessionController;
     private final ResultadoController resultadoController;
 
     public VentanaHistorial(SessionController sessionController) {
-        this.sessionController = sessionController;
         this.resultadoController = new ResultadoController(sessionController);
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

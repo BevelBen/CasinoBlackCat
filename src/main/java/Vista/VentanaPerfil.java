@@ -8,17 +8,18 @@ import java.awt.*;
 public class VentanaPerfil {
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Perfil - Casino Black Cat");
-    private final JLabel lblNombre = new JLabel("Nombre de usuario:");
     private final JTextField txtNombre = new JTextField();
-    private final JButton btnGuardarNombre = new JButton("Guardar nombre");
     private final JLabel lblSaldo = new JLabel();
     private final JTextField txtRecarga = new JTextField();
-    private final JButton btnRecargar = new JButton("Recargar saldo");
 
     private final SessionController sessionController;
 
     public VentanaPerfil(SessionController sessionController) {
         this.sessionController = sessionController;
+
+        JButton btnGuardarNombre = new JButton("Guardar nombre");
+        JButton btnRecargar = new JButton("Recargar saldo");
+        JLabel lblNombre = new JLabel("Nombre de usuario:");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 320);
