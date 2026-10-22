@@ -15,8 +15,8 @@ public class VentanaLogin {
     private final JButton btnIngresar = new JButton("Ingresar");
     private final JButton btnRegistrarse = new JButton("Registrarse");
 
-    private SessionController sessionController;
-    private RuletaController ruletaController;
+    private final SessionController sessionController;
+    private final RuletaController ruletaController;
 
     /**
      * Constructor que inicializa la ventana de inicio de sesión.
