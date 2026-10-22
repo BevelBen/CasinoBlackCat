@@ -1,9 +1,6 @@
 package Vista;
 
 import Controlador.RuletaController;
-import Controlador.SessionController;
-import Modelo.Resultado;
-import Modelo.TipoApuesta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,21 +11,23 @@ public class VentanaRuleta {
     private final JLabel lblMonto = new JLabel("Ingrese el monto deseado:");
     private final JTextField txtMonto = new JTextField();
     private final JLabel lblApuestas = new JLabel("Elija un tipo de apuesta:");
-    private final JComboBox<TipoApuesta> cboApuestas =new JComboBox<>(TipoApuesta.values());
+    private final JComboBox<String> cboApuestas = new JComboBox<>();
     private final JButton btnApostar = new JButton("Apostar");
 
-    private final SessionController sessionController;
     private final RuletaController ruletaController;
 
-    public VentanaRuleta(SessionController sessionController) {
-        this.sessionController = sessionController;
-        this.ruletaController = new RuletaController(sessionController);
+    public VentanaRuleta(RuletaController ruletaController) {
+        this.ruletaController = ruletaController;
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(6, 1, 5, 5));
 
         btnApostar.addActionListener(e -> apostarRuleta());
+
+        for (String apuestaCadena : ruletaController.obetenerTiposApuesta()) {
+            cboApuestas.addItem(apuestaCadena);
+        }
 
         frame.add(lblSaldo);
         frame.add(lblMonto);
@@ -46,22 +45,18 @@ public class VentanaRuleta {
     }
 
     public void actualizarEstado() {
-        lblSaldo.setText("Estado actual: " + sessionController.getSaldo());
+        lblSaldo.setText("Estado actual: " + ruletaController.getSaldo());
     }
 
     private void apostarRuleta() {
-        TipoApuesta tipoApuesta = (TipoApuesta) cboApuestas.getSelectedItem();
-        Resultado resultado;
+        String tipoApuesta = (String) cboApuestas.getSelectedItem();
 
         try {
-            resultado = ruletaController.realizarApuesta(tipoApuesta, txtMonto.getText());
-            JOptionPane.showMessageDialog(frame, resultado);
+            JOptionPane.showMessageDialog(frame, ruletaController.realizarApuesta(tipoApuesta, txtMonto.getText()));
         } catch (IllegalArgumentException | IllegalStateException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Apuesta no válida", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        sessionController.depositar(resultado.getMontoGanado());
-        sessionController.registrarJugada(resultado);
         actualizarEstado();
     }
 }
