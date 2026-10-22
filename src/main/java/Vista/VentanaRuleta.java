@@ -25,7 +25,7 @@ public class VentanaRuleta {
 
         btnApostar.addActionListener(e -> apostarRuleta());
 
-        for (String apuestaCadena : ruletaController.obetenerTiposApuesta()) {
+        for (String apuestaCadena : ruletaController.obtenerTiposApuesta()) {
             cboApuestas.addItem(apuestaCadena);
         }
 

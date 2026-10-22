@@ -28,7 +28,7 @@ public class RuletaController {
      * Permite obtener una lista con todos los tipos de apuestas como cadenas.
      * @return la lista con cada tipo de apuesta.
      */
-    public List<String> obetenerTiposApuesta() {
+    public List<String> obtenerTiposApuesta() {
         List<String> tipos = new ArrayList<>();
         for (TipoApuesta tipo : TipoApuesta.values()) {
             tipos.add(tipo.name());
