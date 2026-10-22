@@ -2,7 +2,6 @@ package Vista;
 
 import Controlador.RuletaController;
 import Controlador.SessionController;
-import Modelo.Ruleta;
 
 import javax.swing.*;
 import java.awt.*;
