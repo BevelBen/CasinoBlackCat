@@ -93,7 +93,7 @@ public class SessionController {
      */
     public void depositar(int monto) {
         if (usuarioActual == null) {
-            throw new IllegalArgumentException("No hay una sesión.");
+            throw new IllegalStateException("No hay una sesión.");
         }
         usuarioActual.agregarSaldo(monto);
     }
@@ -107,6 +107,9 @@ public class SessionController {
     }
 
     public void recargar(int monto) {
+        if (usuarioActual == null) {
+            throw new IllegalStateException("No hay una sesión.");
+        }
         if (monto < 0) {
             throw new IllegalArgumentException("El monto a recargar no puede ser negativo.");
         }
