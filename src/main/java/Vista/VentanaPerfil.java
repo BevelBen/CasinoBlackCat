@@ -62,7 +62,7 @@ public class VentanaPerfil {
 
     private void recargar() {
         try {
-            sessionController.depositar(txtRecarga.getText());
+            sessionController.recargar(txtRecarga.getText());
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(frame, ex.getMessage(), "Recarga no válida", JOptionPane.WARNING_MESSAGE);
             return;

@@ -100,8 +100,18 @@ public class SessionController {
      * @param monto monto el que se va a depositar.
      */
     public void depositar(String monto) {
-        int montoEntero = parsearMonto(monto);
-        depositar(montoEntero);
+        depositar(parsearMonto(monto));
+    }
+
+    public void recargar(int monto) {
+        if (monto < 0) {
+            throw new IllegalArgumentException("El monto a recargar no puede ser negativo.");
+        }
+        depositar(monto);
+    }
+
+    public void recargar(String monto) {
+        recargar(parsearMonto(monto));
     }
 
     /**
