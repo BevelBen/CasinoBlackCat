@@ -6,7 +6,7 @@ import Modelo.UsuarioManager;
 
 public class SessionController {
     private Usuario usuarioActual;
-    private UsuarioManager usuarioManager;
+    private final UsuarioManager usuarioManager;
 
     public SessionController() {
         this(new UsuarioManager());
@@ -146,9 +146,9 @@ public class SessionController {
     }
 
     /**
-     * Permite convertir el monto expresado
-     * @param montoTexto
-     * @return
+     * Permite convertir el monto expresado como cadena a entero.
+     * @param montoTexto el monto en forma de cadena.
+     * @return el monto en forma de entero.
      */
     private int parsearMonto(String montoTexto) {
         if (montoTexto == null) {
