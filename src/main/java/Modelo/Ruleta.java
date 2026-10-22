@@ -25,9 +25,8 @@ public class Ruleta {
     }
 
     /**
-     * Inicia una ronda de la ruleta: leer apuesta, girar,
-     * evaluar y mostrar resultado.
-     *
+     * Evalúa una ronda; válida el monto, gira la ruleta, añade el resultado al historial
+     * y retorna el resultado como un objeto de Resultado.
      * @param tipoApuesta tipo de apuesta.
      */
     public Resultado iniciarRonda(TipoApuesta tipoApuesta, int monto) {
@@ -88,8 +87,6 @@ public class Ruleta {
 
     /**
      * Determina si un número es par.
-     * e
-     *
      * @param n número cuya paridad se verifica.
      * @return true si es par, false en caso contrario.
      */
