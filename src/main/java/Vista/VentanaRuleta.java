@@ -8,11 +8,8 @@ import java.awt.*;
 public class VentanaRuleta {
     private final JFrame frame = new JFrame("Ruleta - Casino Black Cat");
     private final JLabel lblSaldo = new JLabel();
-    private final JLabel lblMonto = new JLabel("Ingrese el monto deseado:");
     private final JTextField txtMonto = new JTextField();
-    private final JLabel lblApuestas = new JLabel("Elija un tipo de apuesta:");
     private final JComboBox<String> cboApuestas = new JComboBox<>();
-    private final JButton btnApostar = new JButton("Apostar");
 
     private final RuletaController ruletaController;
 
@@ -23,6 +20,7 @@ public class VentanaRuleta {
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(6, 1, 5, 5));
 
+        JButton btnApostar = new JButton("Apostar");
         btnApostar.addActionListener(e -> apostarRuleta());
 
         for (String apuestaCadena : ruletaController.obtenerTiposApuesta()) {
@@ -30,8 +28,10 @@ public class VentanaRuleta {
         }
 
         frame.add(lblSaldo);
+        JLabel lblMonto = new JLabel("Ingrese el monto deseado:");
         frame.add(lblMonto);
         frame.add(txtMonto);
+        JLabel lblApuestas = new JLabel("Elija un tipo de apuesta:");
         frame.add(lblApuestas);
         frame.add(cboApuestas);
         frame.add(btnApostar);

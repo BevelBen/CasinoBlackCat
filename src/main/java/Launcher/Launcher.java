@@ -9,9 +9,7 @@ import javax.swing.*;
 
 public class Launcher {
     void main() {
-
-        // APARIENCIA CON FLATLAF
-        try {
+        try { // Apariencia con FlatLaf
             UIManager.setLookAndFeel(
                     new FlatDarkLaf()
             );

@@ -13,10 +13,6 @@ public class VentanaMenu {
     private final JFrame frame = new JFrame("Menú - Casino Black Cat");
     private final JLabel lblBienvenida = new JLabel();
     private final JLabel lblSaldo = new JLabel();
-    private final JButton btnJugar = new JButton("Jugar a la ruleta");
-    private final JButton btnHistorial = new JButton("Ver el historial");
-    private final JButton btnPerfil = new JButton("Mi perfil");
-    private final JButton btnSalir = new JButton("Salir");
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
@@ -29,12 +25,16 @@ public class VentanaMenu {
         frame.setSize(400, 260);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
 
+        JButton btnJugar = new JButton("Jugar a la ruleta");
         btnJugar.addActionListener(e ->
                 new VentanaRuleta(ruletaController).mostrarVentana());
+        JButton btnHistorial = new JButton("Ver el historial");
         btnHistorial.addActionListener(e ->
                 new VentanaHistorial(new ResultadoController(sessionController)).mostrarVentana());
+        JButton btnPerfil = new JButton("Mi perfil");
         btnPerfil.addActionListener(e ->
                  new VentanaPerfil(sessionController).mostrarVentana());
+        JButton btnSalir = new JButton("Salir");
         btnSalir.addActionListener(e -> cerrarSesion());
 
         frame.addWindowListener(new WindowAdapter() {

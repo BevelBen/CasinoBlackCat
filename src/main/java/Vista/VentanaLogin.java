@@ -8,12 +8,8 @@ import java.awt.*;
 
 public class VentanaLogin {
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
-    private final JLabel lblUsuario = new JLabel("Usuario:");
     private final JTextField txtUsuario = new JTextField();
-    private final JLabel lblClave = new JLabel("Clave:");
     private final JPasswordField txtClave = new JPasswordField();
-    private final JButton btnIngresar = new JButton("Ingresar");
-    private final JButton btnRegistrarse = new JButton("Registrarse");
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
@@ -30,11 +26,15 @@ public class VentanaLogin {
         frame.setSize(400, 200);
         frame.setLayout(new GridLayout(5, 1, 5, 5));
 
+        JButton btnIngresar = new JButton("Ingresar");
         btnIngresar.addActionListener(e -> login());
+        JButton btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.addActionListener(e -> registrarse());
 
+        JLabel lblUsuario = new JLabel("Usuario:");
         frame.add(lblUsuario);
         frame.add(txtUsuario);
+        JLabel lblClave = new JLabel("Clave:");
         frame.add(lblClave);
         frame.add(txtClave);
         frame.add(btnIngresar);

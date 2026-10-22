@@ -8,14 +8,9 @@ import java.awt.*;
 
 public class VentanaRegistro {
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
-    private final JLabel lblNombre = new JLabel("Nombre:");
     private final JTextField txtNombre = new JTextField();
-    private final JLabel lblUsuario = new JLabel("Usuario:");
     private final JTextField txtUsuario = new JTextField();
-    private final JLabel lblClave = new JLabel("Clave:");
     private final JPasswordField txtClave = new JPasswordField();
-    private final JButton btnRegistrar = new JButton("Crear cuenta");
-    private final JButton btnVolver = new JButton("Volver al login");
 
     private final SessionController sessionController;
     private final RuletaController ruletaController;
@@ -28,13 +23,18 @@ public class VentanaRegistro {
         frame.setSize(400, 420);
         frame.setLayout(new GridLayout(10, 1, 5, 5));
 
+        JButton btnRegistrar = new JButton("Crear cuenta");
         btnRegistrar.addActionListener(e -> registrar());
+        JButton btnVolver = new JButton("Volver al login");
         btnVolver.addActionListener(e -> volver());
 
+        JLabel lblUsuario = new JLabel("Usuario:");
         frame.add(lblUsuario);
         frame.add(txtUsuario);
+        JLabel lblNombre = new JLabel("Nombre:");
         frame.add(lblNombre);
         frame.add(txtNombre);
+        JLabel lblClave = new JLabel("Clave:");
         frame.add(lblClave);
         frame.add(txtClave);
         frame.add(btnRegistrar);

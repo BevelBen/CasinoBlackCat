@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaPerfil {
-    // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Perfil - Casino Black Cat");
     private final JTextField txtNombre = new JTextField();
     private final JLabel lblSaldo = new JLabel();
@@ -17,17 +16,19 @@ public class VentanaPerfil {
     public VentanaPerfil(SessionController sessionController) {
         this.sessionController = sessionController;
 
-        JButton btnGuardarNombre = new JButton("Guardar nombre");
-        JButton btnRecargar = new JButton("Recargar saldo");
-        JLabel lblNombre = new JLabel("Nombre de usuario:");
-
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 320);
         frame.setLayout(new GridLayout(6, 1, 5, 5));
 
+
+        JButton btnGuardarNombre = new JButton("Guardar nombre");
         btnGuardarNombre.addActionListener(e -> guardarNombre());
+
+        JButton btnRecargar = new JButton("Recargar saldo");
         btnRecargar.addActionListener(e -> recargar());
 
+
+        JLabel lblNombre = new JLabel("Nombre de usuario:");
         frame.add(lblNombre);
         frame.add(txtNombre);
         frame.add(btnGuardarNombre);
