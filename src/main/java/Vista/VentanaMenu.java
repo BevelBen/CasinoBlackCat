@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
 
@@ -31,7 +32,7 @@ public class VentanaMenu {
         btnJugar.addActionListener(e ->
                 new VentanaRuleta(ruletaController).mostrarVentana());
         btnHistorial.addActionListener(e ->
-                new VentanaHistorial(sessionController).mostrarVentana());
+                new VentanaHistorial(new ResultadoController(sessionController)).mostrarVentana());
         btnPerfil.addActionListener(e ->
                  new VentanaPerfil(sessionController).mostrarVentana());
         btnSalir.addActionListener(e -> cerrarSesion());

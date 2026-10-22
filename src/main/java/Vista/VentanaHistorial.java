@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.ResultadoController;
-import Controlador.SessionController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +12,8 @@ public class VentanaHistorial {
 
     private final ResultadoController resultadoController;
 
-    public VentanaHistorial(SessionController sessionController) {
-        this.resultadoController = new ResultadoController(sessionController);
+    public VentanaHistorial(ResultadoController resultadoController) {
+        this.resultadoController = resultadoController;
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(450, 400);
