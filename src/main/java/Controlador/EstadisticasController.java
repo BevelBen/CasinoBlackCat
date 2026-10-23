@@ -14,6 +14,6 @@ public class EstadisticasController {
                 + "\nVictorias: " + estadisticas.getVictorias()
                 + "\nPorcentaje de Victorias: " + estadisticas.getPorcentajeVictorias()
                 + "\nRacha Maxima de Aciertos: " + estadisticas.getRachaMaxima()
-                + "\nTipo de Apuesta Más Jugada: " + estadisticas.getTipoMasJugado().name();
+                + "\nTipo de Apuesta Más Jugada: " + ((estadisticas.getTipoMasJugado() == null) ? "Sin datos" : estadisticas.getTipoMasJugado().name());
     }
 }
