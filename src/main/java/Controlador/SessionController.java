@@ -4,6 +4,8 @@ import Modelo.Resultado;
 import Modelo.Usuario;
 import Modelo.UsuarioManager;
 
+import java.util.List;
+
 public class SessionController {
     private Usuario usuarioActual;
     private final UsuarioManager usuarioManager;
@@ -174,5 +176,9 @@ public class SessionController {
         } catch (NumberFormatException e){
             throw new IllegalArgumentException("El monto debe ser un número entero.");
         }
+    }
+
+    public List<Resultado> obtenerHistorial() {
+        return usuarioActual.getHistorial();
     }
 }

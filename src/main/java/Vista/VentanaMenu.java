@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.EstadisticasController;
 import Controlador.ResultadoController;
 import Controlador.RuletaController;
 import Controlador.SessionController;
@@ -33,9 +34,12 @@ public class VentanaMenu {
         JButton btnHistorial = new JButton("Ver el historial");
         btnHistorial.addActionListener(e ->
                 new VentanaHistorial(resultadoController).mostrarVentana());
+        JButton btnEstadisticas = new JButton("Ver estadísticas");
+        btnEstadisticas.addActionListener(e ->
+                mostrarEstadisticas());
         JButton btnPerfil = new JButton("Mi perfil");
         btnPerfil.addActionListener(e ->
-                 new VentanaPerfil(sessionController).mostrarVentana());
+                new VentanaPerfil(sessionController).mostrarVentana());
         JButton btnSalir = new JButton("Salir");
         btnSalir.addActionListener(e -> cerrarSesion());
 
@@ -50,6 +54,7 @@ public class VentanaMenu {
         frame.add(lblSaldo);
         frame.add(btnJugar);
         frame.add(btnHistorial);
+        frame.add(btnEstadisticas);
         frame.add(btnPerfil);
         frame.add(btnSalir);
 
@@ -70,5 +75,10 @@ public class VentanaMenu {
     public void mostrarVentana() {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private void mostrarEstadisticas() {
+        EstadisticasController estadisticasController = new EstadisticasController(sessionController);
+        JOptionPane.showMessageDialog(frame, estadisticasController.obtenerEstadisticas());
     }
 }

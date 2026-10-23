@@ -60,7 +60,7 @@ public class Estadisticas {
 	}
 
 	private double calcularPorcentajeVictorias() {
-		return (totalJugadas == 0) ? 0.0 : 100.0 / totalJugadas;
+		return (totalJugadas == 0) ? 0.0 : (double) victorias / totalJugadas * 100.0;
 	}
 
 	private int calcularRachaMaxima() {
