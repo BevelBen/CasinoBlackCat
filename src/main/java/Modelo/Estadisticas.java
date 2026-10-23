@@ -5,15 +5,15 @@ import java.util.List;
 public class Estadisticas {
 
 	private final List<Resultado> resultados;
-	private int totalJugadas;
-	private int victorias;
-	private double porcentajeVictorias;
-	private int rachaMaxima;
-	private TipoApuesta tipoMasJugado;
+	private final int totalJugadas;
+	private final int victorias;
+	private final double porcentajeVictorias;
+	private final int rachaMaxima;
+	private final TipoApuesta tipoMasJugado;
 
 	/**
-	 * 
-	 * @param resultados
+	 *
+	 * @param resultados lista con los resultados a analizar.
 	 */
 	public Estadisticas(List<Resultado> resultados) {
 		this.resultados = resultados;
