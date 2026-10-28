@@ -23,9 +23,10 @@ public class VentanaRuleta {
         JButton btnApostar = new JButton("Apostar");
         btnApostar.addActionListener(e -> apostarRuleta());
 
-        for (String apuestaCadena : ruletaController.obtenerTiposApuesta()) {
-            cboApuestas.addItem(apuestaCadena);
-        }
+        cboApuestas.addItem("Negro");
+        cboApuestas.addItem("Rojo");
+        cboApuestas.addItem("Par");
+        cboApuestas.addItem("Impar");
 
         frame.add(lblSaldo);
         JLabel lblMonto = new JLabel("Ingrese el monto deseado:");
@@ -49,10 +50,10 @@ public class VentanaRuleta {
     }
 
     private void apostarRuleta() {
-        String tipoApuesta = (String) cboApuestas.getSelectedItem();
+        String tipo = (String) cboApuestas.getSelectedItem();
 
         try {
-            JOptionPane.showMessageDialog(frame, ruletaController.realizarApuesta(tipoApuesta, txtMonto.getText()));
+            JOptionPane.showMessageDialog(frame, ruletaController.realizarApuesta(tipo, txtMonto.getText()));
         } catch (IllegalArgumentException | IllegalStateException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Apuesta no válida", JOptionPane.WARNING_MESSAGE);
             return;
