@@ -10,9 +10,9 @@ class ResultadoTest {
     @Test
     @DisplayName("Los getters devuelven los valores entregados al constructor")
     void getters_devuelvenLosDatos() {
-        Resultado r = new Resultado(17, TipoApuesta.NEGRO, 40, true);
+        Resultado r = new Resultado(17, "Rojo", 40, true);
         assertEquals(17, r.getNumeroRuleta());
-        assertEquals(TipoApuesta.NEGRO, r.getTipoApuesta());
+        assertEquals("Rojo", r.getEtiquetaApuesta());
         assertEquals(40, r.getMonto());
         assertTrue(r.getAcerto());
     }
@@ -20,8 +20,8 @@ class ResultadoTest {
     @Test
     @DisplayName("toString incluye el número que salió y el tipo de apuesta")
     void toString_incluyeNumeroYTipo() {
-        String texto = new Resultado(23, TipoApuesta.IMPAR, 5, true).toString();
+        String texto = new Resultado(23, "Rojo", 5, true).toString();
         assertTrue(texto.contains("23"));
-        assertTrue(texto.contains("IMPAR"));
+        assertTrue(texto.contains("Rojo"));
     }
 }

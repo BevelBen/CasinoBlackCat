@@ -20,7 +20,7 @@ class RuletaTest {
     void giroReal_numeroEnRango() {
         Ruleta r = new Ruleta();
         for (int i = 0; i < 100; i++) {
-            int n = r.iniciarRonda(TipoApuesta.ROJO, 1).getNumeroRuleta();
+            int n = r.iniciarRonda(new ApuestaNegro(1)).getNumeroRuleta();
             assertTrue(n >= 0 && n <= 36, "Número fuera de rango: " + n);
         }
     }
