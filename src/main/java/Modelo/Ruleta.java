@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Ruleta {
     private final Random rng = new Random();
-    private static final int[] NUMEROS_ROJOS = {
+    private final int[] NUMEROS_ROJOS = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
@@ -29,14 +29,19 @@ public class Ruleta {
      * y retorna el resultado como un objeto de Resultado.
      * @param tipoApuesta tipo de apuesta.
      */
-    public Resultado iniciarRonda(TipoApuesta tipoApuesta, int monto) {
-        if (!validarMonto(monto)) {
+    public Resultado iniciarRonda(ApuestaBase apuestaBase) {
+        if (apuestaBase == null) {
+            throw new IllegalArgumentException("Apuesta no valida.");
+        }
+        if (!validarMonto(apuestaBase.getMontoApostado())) {
             throw new IllegalArgumentException("El monto debe ser mayor que cero.");
         }
-        int numero = girarRuleta();
-        boolean acerto = evaluarResultado(numero, tipoApuesta);
 
-        Resultado resultado = new Resultado(numero, tipoApuesta, monto, acerto);
+        int numero = girarRuleta();
+        String color = evaluarColor(numero);
+        boolean acerto = apuestaBase.acierta(numero, color);
+
+        Resultado resultado = new Resultado(numero, apuestaBase.getEtiquetaApuesta(), apuestaBase.getMontoApostado(), acerto);
         resultados.add(resultado);
         return resultado;
     }
@@ -52,20 +57,12 @@ public class Ruleta {
     }
 
     /**
-     * Evalúa si la apuesta realizada por el jugador
-     * fue acertada.
-     *
-     * @param numero      número obtenido en la ruleta.
-     * @param tipoApuesta tipo de apuesta elegida.
-     * @return true si acertó, false si perdió.
+     * Entrega el color del número n.
+     * @param n el numero obtenido.
+     * @return el color como cadena.
      */
-    private boolean evaluarResultado(int numero, TipoApuesta tipoApuesta) {
-        return switch (tipoApuesta) {
-            case ROJO -> esRojo(numero);
-            case NEGRO -> !esRojo(numero);
-            case PAR -> esPar(numero);
-            case IMPAR -> !esPar(numero);
-        };
+    private String evaluarColor(int n) {
+        return esRojo(n) ? "ROJO" : "NEGRO";
     }
 
     /**
@@ -83,14 +80,5 @@ public class Ruleta {
             i++;
         }
         return false;
-    }
-
-    /**
-     * Determina si un número es par.
-     * @param n número cuya paridad se verifica.
-     * @return true si es par, false en caso contrario.
-     */
-    private boolean esPar(int n) {
-        return n % 2 == 0;
     }
 }
