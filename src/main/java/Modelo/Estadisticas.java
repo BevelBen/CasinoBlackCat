@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Estadisticas {
 
@@ -9,7 +11,7 @@ public class Estadisticas {
 	private final int victorias;
 	private final double porcentajeVictorias;
 	private final int rachaMaxima;
-	private final TipoApuesta tipoMasJugado;
+	private final String tipoMasJugado;
 
 	/**
 	 *
@@ -41,7 +43,7 @@ public class Estadisticas {
 		return this.rachaMaxima;
 	}
 
-	public TipoApuesta getTipoMasJugado() {
+	public String getTipoMasJugado() {
 		return this.tipoMasJugado;
 	}
 
@@ -79,19 +81,16 @@ public class Estadisticas {
 		return maximaVista;
 	}
 
-	private TipoApuesta calcularTipoMasJugado() {
-		TipoApuesta masJugado = null;
+	private String calcularTipoMasJugado() { // ENCUENTRA EL TIPO MAS JUGADO COMO CADENA UTILIZANDO UN MAP
+		Map<String, Integer> conteo = new HashMap<>();
+		String masJugado = null;
 		int mayor = 0;
-		for (TipoApuesta tipo : TipoApuesta.values()) {
-			int cantidad = 0;
-			for (Resultado resultado : resultados) {
-				if (resultado.getTipoApuesta() == tipo) {
-					cantidad++;
-				}
-			}
+		for (Resultado resultado : resultados) {
+			String etiqueta = resultado.getEtiquetaApuesta();
+			int cantidad = conteo.merge(etiqueta, 1, Integer::sum);
 			if (cantidad > mayor) {
 				mayor = cantidad;
-				masJugado = tipo;
+				masJugado = etiqueta;
 			}
 		}
 		return masJugado;
