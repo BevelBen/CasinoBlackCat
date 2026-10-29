@@ -4,9 +4,23 @@ import java.util.ArrayList;
 
 public class UsuarioManager {
     private final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    private final PersistenciaUsuarios persistenciaUsuarios;
 
     public UsuarioManager() {
-        listaUsuarios.add(new Usuario("benjamin", "123", "Benjamin"));
+        this.persistenciaUsuarios = null;
+    }
+
+    public UsuarioManager(PersistenciaUsuarios persistenciaUsuarios) {
+        this.persistenciaUsuarios = persistenciaUsuarios;
+        if (persistenciaUsuarios.existeRuta()) {
+            listaUsuarios.addAll(persistenciaUsuarios.cargar());
+        }
+    }
+
+    public void guardar() {
+        if (persistenciaUsuarios != null) {
+            persistenciaUsuarios.guardar(listaUsuarios);
+        }
     }
 
     /**
