@@ -40,15 +40,14 @@ public class PersistenciaUsuarios {
         List<String> lineas = obtenerLineas();
 
         Usuario usuarioActual = null;
-        for (int i = 0; i < lineas.size(); i++) {
-            String linea = lineas.get(i);
+        for (String linea : lineas) {
             String[] campos = linea.split(SEP);
             switch (campos[0]) {
-                case "U" :
+                case "U":
                     usuarioActual = new Usuario(campos[1], campos[2], campos[3], Integer.parseInt(campos[4]));
                     usuarios.add(usuarioActual);
                     break;
-                case "H" :
+                case "H":
                     usuarioActual.registrarJugada(new Resultado(Integer.parseInt(campos[1]), campos[2], Integer.parseInt(campos[3]), parsearBoolean(campos[4])));
                     break;
             }
