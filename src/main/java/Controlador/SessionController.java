@@ -66,6 +66,7 @@ public class SessionController {
             throw new IllegalArgumentException("El nombre no puede ser vacío.");
         }
         usuarioActual.setNombre(nombre);
+        usuarioManager.guardar();
     }
 
     /**
@@ -87,6 +88,7 @@ public class SessionController {
             throw new IllegalStateException("No hay una sesión.");
         }
         usuarioActual.setSaldo(saldo);
+        usuarioManager.guardar();
     }
 
     /**
@@ -98,6 +100,7 @@ public class SessionController {
             throw new IllegalStateException("No hay una sesión.");
         }
         usuarioActual.agregarSaldo(monto);
+        usuarioManager.guardar();
     }
 
     /**
@@ -161,6 +164,7 @@ public class SessionController {
             throw new IllegalStateException("No hay sesión.");
         }
         usuarioActual.registrarJugada(resultado);
+        usuarioManager.guardar();
     }
 
     /**
