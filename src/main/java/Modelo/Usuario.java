@@ -36,6 +36,10 @@ public class Usuario {
         return saldo;
     }
 
+    protected String getPassword() {
+        return password;
+    }
+
     public void setSaldo(int saldo) {
         if (saldo < 0) {
             throw new IllegalArgumentException("El saldo no puede ser negativo.");
