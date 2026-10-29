@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.Objects;
-
 public class ApuestaNegro extends ApuestaBase {
     public ApuestaNegro(int montoApostado) {
         super(montoApostado, "Negro");
