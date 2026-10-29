@@ -27,7 +27,7 @@ public class Ruleta {
     /**
      * Evalúa una ronda; válida el monto, gira la ruleta, añade el resultado al historial
      * y retorna el resultado como un objeto de Resultado.
-     * @param tipoApuesta tipo de apuesta.
+     * @param apuestaBase un objeto de alguna subclase de apuestaBase.
      */
     public Resultado iniciarRonda(ApuestaBase apuestaBase) {
         if (apuestaBase == null) {
